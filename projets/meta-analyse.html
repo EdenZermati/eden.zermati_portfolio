@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Méta-analyse phtalates et asthme — Eden Zermati</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../projet.css">
+  <style>
+    .kpi{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .ma-prose,
+    .ma-details .steps p{
+      text-align:justify;
+      text-justify:inter-word;
+      hyphens:auto;
+    }
+    .note p{max-width:none;margin:8px 0 0}
+    .ma-journey{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+      margin:24px 0;
+    }
+    .ma-journey article{
+      min-width:0;
+      padding:18px 16px;
+      background:var(--card);
+      border-top:3px solid var(--wine);
+      border-radius:0 0 9px 9px;
+    }
+    .ma-journey article>span{
+      display:block;
+      font-size:10px;
+      letter-spacing:.07em;
+      font-weight:600;
+      color:var(--wine);
+      margin-bottom:12px;
+    }
+    .ma-journey h3{font-size:20px;margin-bottom:12px}
+    .ma-journey p{font-size:13px;line-height:1.75}
+    .ma-journey small{font-size:11px;color:var(--mute)}
+    .ma-details{
+      padding:15px 0;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      margin:20px 0;
+    }
+    .ma-details summary{
+      font-size:14px;
+      color:var(--wine);
+      font-weight:600;
+      cursor:pointer;
+    }
+    .ma-details[open] summary{margin-bottom:16px}
+    .ma-details summary:focus-visible{outline:3px solid var(--wine);outline-offset:4px}
+    .ma-details .steps p{max-width:none;margin:8px 0 0}
+    .ma-details .steps li>div{min-width:0}
+    .tw{
+      border:1px solid var(--line);
+      border-radius:10px;
+      margin:20px 0 0;
+      background:var(--card);
+    }
+    .tw table{margin:0}
+    .tw th{color:var(--wine);background:var(--bg);min-width:110px}
+    .tw th,.tw td{padding:13px 15px;vertical-align:top}
+    .tw tr:last-child>*{border-bottom:0}
+    @media(max-width:680px){
+      .ma-journey{grid-template-columns:1fr}
+      .ma-prose,
+      .ma-details .steps p{text-align:left;hyphens:none}
+    }
+    @media(max-width:540px){
+      .kpi{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+<main>
+  <a class="back" href="../index.html#projets">← Retour aux projets</a>
+
+  <h1>Méta-analyse phtalates et asthme de l’enfant</h1>
+  <p class="hook">J’ai travaillé sur 30 études pour étudier le lien entre l’exposition aux phtalates et l’asthme chez l’enfant.</p>
+
+  <dl class="meta">
+    <div><dt>Type</dt><dd>Stage</dd></div>
+    <div><dt>Période</dt><dd>Juin – août 2024</dd></div>
+    <div><dt>Cadre</dt><dd>SOCOTEC Environnement · Santé et Risques Produits</dd></div>
+    <div><dt>Outils</dt><dd>R · metafor · Excel · Zotero</dd></div>
+  </dl>
+
+  <div class="kpi">
+    <div><b>30</b><span>études dans la base de travail</span></div>
+    <div><b>3</b><span>bases bibliographiques interrogées</span></div>
+    <div><b>11</b><span>semaines de stage</span></div>
+  </div>
+
+  <h2>Problématique</h2>
+  <p class="q">Comment combiner les études sur les phtalates et l’asthme de l’enfant pour estimer une association tout en tenant compte de leurs différences ?</p>
+
+  <div class="note">
+    <b>Confidentialité</b>
+    <p class="ma-prose">Pour des raisons de confidentialité je ne peux pas partager les résultats obtenus pendant ce stage. Cette page présente mon rôle et la méthode suivie. Les résultats et les graphiques associés ne sont pas présentés.</p>
+  </div>
+
+  <h2>Contexte</h2>
+  <p class="ma-prose">Ce stage portait sur le lien entre l’exposition aux phtalates et l’asthme chez l’enfant. Ma mission était d’évaluer si les données des publications scientifiques pouvaient être réunies dans une méta-analyse puis de réaliser cette analyse.</p>
+  <p class="ma-prose">Une méta-analyse combine les estimations de plusieurs études pour obtenir une estimation d’ensemble. Avant de lancer les calculs il fallait donc vérifier que les études étaient suffisamment comparables.</p>
+
+  <h2>Ma contribution</h2>
+  <p class="ma-prose">J’ai participé aux étapes préliminaires en binôme. J’ai ensuite évalué la faisabilité et réalisé la méta-analyse en autonomie.</p>
+
+  <div class="ma-journey">
+    <article>
+      <span>01 · SÉLECTIONNER</span>
+      <h3>Rechercher les études</h3>
+      <p>Nous avons défini la question de recherche puis recherché et trié les publications dans trois bases bibliographiques.</p>
+      <small>Travail préliminaire en binôme</small>
+    </article>
+    <article>
+      <span>02 · COMPARER</span>
+      <h3>Vérifier la faisabilité</h3>
+      <p>J’ai regroupé les caractéristiques des études dans Excel pour vérifier quelles données pouvaient être comparées.</p>
+      <small>Excel · Lecture critique</small>
+    </article>
+    <article>
+      <span>03 · ANALYSER</span>
+      <h3>Réaliser la méta-analyse</h3>
+      <p>J’ai combiné les estimations sous R avec metafor puis examiné leur variabilité et l’influence de chaque étude.</p>
+      <small>R · metafor</small>
+    </article>
+  </div>
+
+  <h2>Données utilisées</h2>
+  <p class="ma-prose">J’ai travaillé sur les données agrégées des articles. Il s’agissait des estimations calculées dans chaque étude et de leurs intervalles de confiance. Les publications provenaient de PubMed et de Scopus ainsi que de Web of Science.</p>
+  <p class="ma-prose">La base comprenait 23 études avec des mesures urinaires et 7 avec des mesures dans la poussière domestique. J’ai traité ces deux types de données séparément.</p>
+
+  <h2>Méthode</h2>
+  <p class="ma-prose">Le travail a commencé par la sélection des publications et la préparation des données. J’ai ensuite réalisé les calculs et les vérifications sous R.</p>
+
+  <details class="ma-details">
+    <summary>Voir les six étapes de mon travail</summary>
+    <ol class="steps">
+      <li>
+        <div>
+          <h3>Définir la question et le protocole</h3>
+          <p>Nous avons structuré la question avec la méthode PICOTS. Nous avons ensuite défini les critères d’inclusion et les mots-clés. Les opérateurs AND et OR ainsi que NOT ont servi à construire les requêtes de recherche.</p>
+          <p class="why">L’objectif était de garder une trace des choix pour pouvoir reprendre la recherche et comprendre la sélection.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Rechercher et sélectionner les publications</h3>
+          <p>Nous avons interrogé trois bases bibliographiques puis supprimé les doublons avec Zotero. Le tri a porté sur les titres et les résumés avant la lecture des articles retenus. La sélection a été documentée selon PRISMA pour rendre le parcours des publications explicite.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Vérifier ce qui pouvait être combiné</h3>
+          <p>J’ai relevé les caractéristiques des études dans Excel. J’ai notamment comparé l’âge des participants et les effectifs ainsi que le type d’étude et le type d’échantillon. J’ai aussi vérifié la présence d’une mesure d’association avec son intervalle de confiance à 95 %. Il pouvait s’agir d’un odds ratio ou d’un risque relatif ou encore d’un hazard ratio.</p>
+          <p class="why">Pour ce projet j’ai retenu un minimum de cinq études par type d’échantillon et de trois par sous-groupe. Ces critères servaient à encadrer la faisabilité de l’analyse.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Combiner les estimations sous R</h3>
+          <p>Pour les odds ratios ajustés j’ai utilisé leur logarithme et l’erreur standard. L’ajustement permet de prendre en compte d’autres facteurs mesurés dans chaque étude. J’ai examiné l’hétérogénéité avec I² et le test Q de Cochran pour évaluer la variabilité entre les études.</p>
+          <p>Dans ce travail j’ai utilisé un modèle à effets fixes si I² était inférieur à 50 % et un modèle à effets aléatoires dans les autres cas. J’ai calculé les estimations combinées et leurs intervalles de confiance avec le package metafor.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Vérifier la sensibilité des analyses</h3>
+          <p>J’ai utilisé le test d’Egger et les funnel plots pour rechercher des signes d’un possible biais de publication. J’ai aussi retiré les études une à une pour vérifier si une seule publication influençait fortement l’estimation d’ensemble.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Étudier les sous-groupes</h3>
+          <p>J’ai distingué les études de cohorte des études transversales et cas-témoins. J’ai aussi tenu compte du moment de l’exposition et du critère de santé mesuré. Les publications pouvaient porter sur une exposition prénatale ou postnatale et sur un diagnostic d’asthme ou des sifflements respiratoires. J’ai ensuite croisé deux critères pour approfondir certaines comparaisons.</p>
+        </div>
+      </li>
+    </ol>
+  </details>
+
+  <h2>Outils</h2>
+  <details class="ma-details">
+    <summary>Voir les outils et leur utilisation</summary>
+    <div class="tw">
+      <table>
+        <tbody>
+          <tr><th scope="row">R et metafor</th><td>Calcul des estimations combinées et de l’hétérogénéité. Analyses de sensibilité et par sous-groupes. Test d’Egger et funnel plots.</td></tr>
+          <tr><th scope="row">Excel</th><td>Extraction des données des publications et harmonisation des caractéristiques des études pour évaluer la faisabilité.</td></tr>
+          <tr><th scope="row">Zotero</th><td>Gestion des références bibliographiques et suppression des doublons pendant la sélection.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <h2>Compétences mobilisées</h2>
+  <div class="tags">
+    <span>Revue systématique</span>
+    <span>PRISMA</span>
+    <span>Méta-analyse</span>
+    <span>R</span>
+    <span>metafor</span>
+    <span>Hétérogénéité (I²)</span>
+    <span>Biais de publication</span>
+    <span>Analyses de sensibilité</span>
+    <span>Lecture critique d’articles</span>
+    <span>Synthèse scientifique</span>
+    <span>Santé environnementale</span>
+  </div>
+
+  <footer><a href="../index.html#projets">← Retour aux projets</a> · Stage réalisé chez SOCOTEC Environnement.</footer>
+</main>
+</body>
+</html>

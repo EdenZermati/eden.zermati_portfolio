@@ -1,0 +1,3 @@
+Dépose ici tes captures (dashboard, applications, graphiques).
+Puis ajoute le chemin dans script.js, dans le bloc du projet : img:"images/nom.png"
+Format conseillé : 1200 x 750 px (ratio 16:10), en PNG ou JPG.

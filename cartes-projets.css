@@ -1,0 +1,68 @@
+/* Couvertures des projets : charger APRES style.css. */
+#projets .g{gap:24px}
+#projets .g.o{grid-template-columns:repeat(3,minmax(0,1fr))}
+#projets .c{display:flex;flex-direction:column;min-width:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card);color:var(--ink);box-shadow:0 3px 12px rgba(50,30,20,.025)}
+#projets .c:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--wine) 45%,var(--line));box-shadow:0 12px 30px rgba(50,30,20,.08)}
+#projets .c:focus-visible{outline:3px solid var(--wine);outline-offset:5px}
+#projets .project-cover{width:100%;height:238px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;padding:12px 18px;border-bottom:1px solid var(--line);background:var(--card)}
+#projets .project-cover>img{display:block;width:100%;height:100%;object-fit:contain}
+/* Un seul graphique du rapport dans un aperçu aéré. */
+#projets .project-cover--pbi{padding:16px 24px;flex-direction:column;align-items:center;justify-content:center;gap:13px}
+#projets .project-bi-header{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;max-width:360px}
+#projets .project-bi-brand{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap}
+#projets .project-bi-brand svg{display:block;flex-shrink:0}
+#projets .project-bi-pages{font-size:11px;color:var(--mute);white-space:nowrap}
+#projets .project-bi-window{display:block;width:100%;max-width:360px;padding:8px;background:#fff;border:1px solid var(--line);border-radius:9px;box-shadow:0 8px 20px rgba(36,35,33,.06)}
+#projets .project-bi-chart{display:block;width:100%;height:auto;aspect-ratio:1100/432;overflow:hidden}
+#projets .project-cover--app{gap:40px;padding:20px 26px}
+#projets .project-cover--app>.project-logo{width:172px;height:172px;object-fit:contain;border-radius:8px}
+#projets .project-phone{width:106px;height:207px;border:4px solid #2f3135;border-radius:15px;overflow:hidden;box-shadow:0 8px 18px #30292922;flex-shrink:0;transform:rotate(4deg)}
+#projets .project-phone img{display:block;width:100%;height:100%;object-fit:cover}
+#projets .c .cb{display:flex;flex-direction:column;width:100%;padding:23px 24px 24px;gap:12px;flex:1}
+#projets .c .m{font-size:12px;line-height:1.5}
+#projets .project-title{font:italic 700 24px/1.2 Fraunces,Georgia,serif;letter-spacing:-.02em}
+#projets .project-description{color:var(--mute);font-size:14px;line-height:1.65}
+#projets .c .tg{margin-top:auto;padding-top:3px}
+#projets .c .tg span{font-size:11px;padding:2px 8px;border-radius:4px}
+#projets .project-card-footer{display:flex;padding-top:8px}
+#projets .project-card-action{display:inline-flex;align-items:center;justify-content:center;gap:24px;padding:10px 15px;border:1px solid var(--wine);border-radius:6px;background:var(--wine);color:var(--onwine,#fffcf8);font-size:12px;font-weight:600;line-height:1.5}
+#projets .c:hover .project-card-action{filter:brightness(.94)}
+#projets .o .project-cover{height:180px;padding:10px 12px}
+/* Agrandissement de la photo : le bureau au-dessus du prototype est masqué. */
+#projets .o .project-cover--emg{padding:0;align-items:flex-end}
+#projets .o .project-cover--emg>img{width:auto;height:300px;max-width:none;flex-shrink:0;object-fit:contain;border-radius:0}
+#projets .o .c .cb{padding:20px;gap:11px}
+#projets .o .project-title{font-size:21px}
+#projets .o .project-description{font-size:13px}
+@media(max-width:820px){#projets .g.f,#projets .g.o{grid-template-columns:repeat(2,minmax(0,1fr))}#projets .project-cover{height:210px}#projets .project-cover--app{gap:20px;padding:15px}#projets .project-cover--app>.project-logo{width:43%;height:auto}#projets .project-phone{width:88px;height:172px}#projets .project-title{font-size:22px}}
+@media(max-width:580px){#projets .g.f,#projets .g.o{grid-template-columns:1fr}#projets .project-cover,#projets .o .project-cover{height:210px}#projets .c .cb,#projets .o .c .cb{padding:21px;gap:12px}#projets .project-title,#projets .o .project-title{font-size:23px}#projets .project-cover--app{gap:32px}#projets .project-cover--app>.project-logo{width:150px;height:150px}#projets .project-phone{width:96px;height:188px}}
+@media(prefers-reduced-motion:reduce){#projets .c,#projets .c:hover{transform:none;transition:none}}
+
+@media(max-width:580px){#projets .o .project-cover--emg>img{height:340px}}
+
+/* Fenêtres « Le projet en bref ». Les identifiants de l’index sont conservés. */
+#dg{width:calc(100% - 32px);max-width:680px;max-height:90dvh;padding:0;border:1px solid var(--line);border-top:4px solid var(--wine);border-radius:16px;background:var(--card);color:var(--ink);box-shadow:0 24px 80px rgba(30,12,12,.18)}
+#dg::backdrop{background:rgba(30,20,18,.55);backdrop-filter:blur(3px)}
+#dg .dl{position:relative;padding:29px 30px 28px}
+#dg .project-dialog-kicker{margin:0 44px 7px 0;font:600 11px/1.5 Inter,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--wine)}
+#dg #dm{font-size:12px;color:var(--mute);letter-spacing:0}
+#dg #dt{margin:10px 30px 20px 0;padding:0;border:0;font-size:30px;line-height:1.2}
+#dg .dl h4{margin:19px 0 7px;padding-top:15px;border-top:1px solid var(--line);font-size:12px;font-weight:600;line-height:1.5;color:var(--wine)}
+#dg .dl p{max-width:none;font-size:14px;line-height:1.8;text-align:left}
+#dg #dr.project-confidential{padding:11px 14px;border-left:3px solid var(--wine);background:var(--bg);font-size:13px}
+#dg .dl .project-dialog-kicker{font-size:11px;line-height:1.5}
+#dg #cl{position:absolute;top:17px;right:17px;display:grid;place-items:center;width:40px;height:40px;margin:0;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--bg);color:var(--ink);font:26px/1 Inter,system-ui,sans-serif;cursor:pointer}
+#dg #cl:focus-visible,#dg .btn:focus-visible{outline:3px solid var(--wine);outline-offset:4px}
+#dg .tg{display:flex;flex-wrap:wrap;gap:6px}
+#dg .tg span{margin:0;font-size:11px;border-radius:4px}
+#dg #dlk .btn{display:inline-flex;align-items:center;justify-content:center;gap:18px;font-size:13px}
+@media(max-width:580px){
+  #projets .project-cover--pbi{padding:17px 20px;gap:12px}
+  #projets .project-bi-brand{font-size:13px}
+  #projets .project-bi-pages{font-size:10px}
+  #projets .project-bi-header,#projets .project-bi-window{max-width:320px}
+  #dg .dl{padding:24px 21px}
+  #dg #dt{font-size:26px;margin-right:20px}
+  #dg #cl{top:14px;right:14px}
+  #dg #dlk .btn{display:flex;width:100%;gap:12px}
+}

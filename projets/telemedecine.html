@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Web service de santé sécurisé — Eden Zermati</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../projet.css">
+<style>pre{background:var(--card);border-left:4px solid var(--wine);padding:12px 16px;overflow-x:auto;font-size:14px;line-height:1.55;margin:10px 0}code{font-family:ui-monospace,Consolas,monospace;font-size:.92em}</style>
+<style>.pipe{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:18px 0}.pipe span{background:var(--card);border-left:4px solid var(--wine);padding:8px 12px;font-size:14px}.pipe i{font-style:normal;color:var(--wine)}</style>
+<style>
+.tm-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:24px 0}.tm-cards article{padding:18px 16px;background:var(--card);border-top:3px solid var(--wine);border-radius:0 0 9px 9px}.tm-cards article>span,.tm-eyebrow{display:block;font-size:10px;font-weight:600;letter-spacing:.07em;color:var(--wine);margin-bottom:12px}.tm-cards h3{font-size:20px;margin-bottom:12px}.tm-cards p{font-size:13px;line-height:1.75;margin:0}.tm-figures{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;margin:24px auto;max-width:680px}.tm-figure{margin:0}.tm-figure .fr{padding:8px;border-radius:9px}.tm-zoom{display:block;width:100%;cursor:zoom-in}.tm-figure img{width:100%;height:auto;display:block}.tm-figure figcaption{font-size:12px;line-height:1.6;margin-top:9px}.tm-details{padding:16px 0;margin:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.tm-details summary{cursor:pointer;color:var(--wine);font-size:14px;font-weight:600}.tm-details[open] summary{margin-bottom:14px}.tm-demo{max-width:680px;margin:26px auto 36px;padding:22px;background:var(--card);border:1px solid var(--line);border-radius:14px}.tm-demo h3{font-size:24px;margin-bottom:12px}.tm-demo>p{font-size:14px}.tm-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0 12px}.tm-controls label{font-size:12px;font-weight:600}.tm-controls select{display:block;width:100%;font:inherit;font-size:13px;background:var(--bg);color:var(--ink);padding:11px 8px;border:1px solid var(--line);border-radius:7px;margin-top:7px}.tm-demo .tm-small{font-size:12px;color:var(--mute);line-height:1.7}.tm-actions{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}.tm-actions button{font:inherit;font-size:13px;padding:11px 14px;border:1px solid var(--wine);border-radius:8px;background:var(--wine);color:var(--bg);cursor:pointer}.tm-actions #tm-reset{background:transparent;color:var(--wine)}.tm-demo .tm-state{font-size:13px;font-weight:600;line-height:1.65}.tm-state[data-status="ok"]{color:var(--wine)}.tm-demo pre{font-size:12px;line-height:1.65;background:var(--bg);border-left-width:3px;max-height:320px}.tm-subheading{font-size:21px;margin:24px 0 14px}.tw{border:1px solid var(--line);border-radius:10px;background:var(--card);margin:20px 0}.tw table{margin:0;font-size:14px}.tw th{background:var(--wine);color:var(--bg);font-size:12px}.tw th,.tw td{padding:13px 14px;vertical-align:top}.tw tr:last-child>*{border-bottom:0}.tw tr:nth-child(even) td{background:var(--bg)}.two pre{font-size:12px;max-height:350px}.tm-actions button:focus-visible,.tm-controls select:focus-visible,.tm-zoom:focus-visible,.tm-details summary:focus-visible,#tm-close:focus-visible{outline:3px solid var(--wine);outline-offset:4px}#tm-dialog{width:94vw;max-width:1300px;max-height:94dvh;padding:18px;overflow:auto;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:12px}#tm-dialog::backdrop{background:#17100dd9}.tm-dialog-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:14px;margin-bottom:14px}#tm-close{font:inherit;padding:8px 12px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:7px;cursor:pointer}.tm-scroll{overflow:auto;max-height:76dvh;background:#fff}#tm-zoom-image{display:block;width:100%;min-width:1000px;height:auto}@media(max-width:600px){.tm-cards,.tm-controls,.tm-figures{grid-template-columns:1fr}.tm-figures .tm-figure{max-width:480px;margin:auto}.tm-demo{padding:16px}.tm-controls{gap:10px}}
+</style>
+<style>
+.tm-prose,.tm-details .steps p{text-align:justify;text-justify:inter-word;hyphens:auto}
+.tm-details .steps p{max-width:none;margin:8px 0 0}
+.tm-details .steps li>div,.tm-cards article{min-width:0}
+.tm-details>p{margin-top:16px}
+.tm-note p{max-width:none;margin:8px 0 0}
+.tm-details .find p{max-width:none;margin:8px 0 0}
+.tm-tables{margin:16px 0}
+.tm-tables span{display:inline-block;border:1px solid var(--line);background:var(--card);padding:3px 9px;font-size:13px;margin:0 6px 7px 0}
+.tm-tech th[scope="row"]{min-width:135px}
+.tm-code-pair>div{min-width:0}
+.tm-code-pair h3{font-size:18px}
+.tm-code-pair pre{margin-bottom:0}
+.tm-scenario{margin:16px 0 0;border-top:1px solid var(--line);padding-top:12px}
+.tm-scenario summary{cursor:pointer;color:var(--wine);font-size:12px;font-weight:600}
+.tm-scenario summary:focus-visible{outline:3px solid var(--wine);outline-offset:4px}
+.tm-scenario p{margin:12px 0 0}
+@media(max-width:680px){
+  .tm-prose,.tm-details .steps p{text-align:left;hyphens:none}
+}
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="../index.html#projets">← Retour aux projets</a>
+  <h1>Web service de santé sécurisé</h1>
+  <p class="hook">J’ai adapté une API pour gérer des résultats d’examens biologiques avec des droits d’accès différents selon les utilisateurs.</p>
+
+  <dl class="meta">
+    <div><dt>Type</dt><dd>Projet académique</dd></div>
+    <div><dt>Période</dt><dd>Novembre 2024 – janvier 2025</dd></div>
+    <div><dt>Cadre</dt><dd>ESIEE Paris · 5ᵉ année · Filière BIO</dd></div>
+    <div><dt>Outils</dt><dd>Python · MySQL · Apache · RESTED</dd></div>
+  </dl>
+
+  <div class="kpi">
+    <div><b>7</b><span>tables dans la base de données</span></div>
+    <div><b>4</b><span>méthodes HTTP prises en charge</span></div>
+    <div><b>3</b><span>profils d’utilisateurs</span></div>
+    <div><b>20</b><span>fichiers Python</span></div>
+  </div>
+
+  <h2>Problématique</h2>
+  <p class="q">Comment partager des résultats d’examens biologiques en donnant à chaque utilisateur les droits adaptés à son rôle ?</p>
+  <div class="note tm-note">
+    <b>Projet pédagogique</b>
+    <p class="tm-prose">Toutes les données utilisées pour les tests et la simulation sont fictives.</p>
+  </div>
+
+  <h2>Contexte</h2>
+  <p class="tm-prose">Ce projet prolonge huit tutoriels consacrés à un web service scolaire. J’ai repris cette base pour l’adapter aux examens biologiques. Il fallait faire évoluer la base de données et les droits d’accès tout en protégeant les informations sensibles.</p>
+
+  <h2>Ma contribution</h2>
+  <p class="tm-prose">Le modèle de données a été conçu avec deux camarades. J’ai adapté les routes et les traitements Python ainsi que les contrôles des requêtes. J’ai ensuite testé les quatre méthodes HTTP avec RESTED.</p>
+
+  <div class="tm-cards">
+    <article>
+      <span>MODÉLISER</span>
+      <h3>Organiser les données</h3>
+      <p>Nous avons conçu les relations entre les utilisateurs et les examens ainsi que les autorisations dans MySQL.</p>
+    </article>
+    <article>
+      <span>ADAPTER</span>
+      <h3>Faire évoluer l’API</h3>
+      <p>J’ai relié les opérations HTTP aux validations et aux droits d’accès puis aux traitements de la base.</p>
+    </article>
+    <article>
+      <span>VÉRIFIER</span>
+      <h3>Tester les opérations</h3>
+      <p>J’ai testé la lecture et l’ajout puis la modification et la suppression avec le profil laboratoire.</p>
+    </article>
+  </div>
+
+  <h2>Modèle de données</h2>
+  <p class="tm-prose">La base MySQL relie les utilisateurs aux examens et à leurs résultats. Elle distingue les patients des médecins et conserve les droits associés à chaque profil.</p>
+
+  <details class="tm-details">
+    <summary>Voir les schémas et les choix de conception</summary>
+    <p class="tm-prose">La base comporte sept tables.</p>
+    <div class="tm-tables" aria-label="Les sept tables de la base">
+      <span>Utilisateur</span><span>Patient</span><span>Médecin</span><span>Examen</span><span>Résultat d’examen</span><span>Droit</span><span>Autorisation</span>
+    </div>
+    <div class="tm-figures">
+      <figure class="tm-figure"><div class="fr"><a class="tm-zoom" href="../images/telemedecine-01-mcd.png" target="_blank" rel="noopener"><img src="../images/telemedecine-01-mcd.png" alt="Schéma conceptuel de la base de données" width="900" loading="lazy"></a></div><figcaption>Modèle conceptuel de données.</figcaption></figure>
+      <figure class="tm-figure"><div class="fr"><a class="tm-zoom" href="../images/telemedecine-02-mld.png" target="_blank" rel="noopener"><img src="../images/telemedecine-02-mld.png" alt="Modèle logique de données" width="900" loading="lazy"></a></div><figcaption>Modèle logique de données.</figcaption></figure>
+    </div>
+    <div class="find">
+      <h3>Une structure commune aux patients et aux médecins</h3>
+      <p class="tm-prose">Le premier modèle reposait sur des catégories d’utilisateurs. Cette organisation créait des redondances et compliquait la relation avec le médecin traitant. J’ai fait évoluer le modèle pour que Patient et Médecin partagent la clé de la table Utilisateur. Chaque patient est aussi rattaché à un médecin traitant. Ce lien sert à limiter les dossiers accessibles au médecin.</p>
+    </div>
+    <div class="find">
+      <h3>Des identifiants de santé séparés des clés techniques</h3>
+      <p class="tm-prose">Au départ l’INS et le RPPS servaient de clés dans la base. J’ai utilisé une clé technique nommée <code>Id_Utilisateur</code> pour les relations entre les tables. L’INS et le RPPS ont été conservés comme des attributs chiffrés.</p>
+    </div>
+  </details>
+
+  <h2>Méthode</h2>
+  <p class="tm-prose">J’ai organisé les traitements pour vérifier les requêtes et les droits avant d’accéder à la base. Les données sensibles sont chiffrées au stockage puis déchiffrées pour une lecture autorisée.</p>
+
+  <details class="tm-details">
+    <summary>Voir les six étapes et le fonctionnement technique</summary>
+    <ol class="steps">
+      <li>
+        <div>
+          <h3>Définir les profils et les opérations</h3>
+          <p>Nous avons défini trois profils avec des droits différents. Le patient consulte ses résultats. Le médecin consulte ceux de ses patients. Le laboratoire dispose des opérations de lecture et d’écriture prévues dans le projet.</p>
+          <p class="why">Ces règles ont servi de base au modèle conceptuel puis au modèle logique des données.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Chiffrer les informations sensibles</h3>
+          <p>J’ai utilisé Fernet dans un script d’initialisation pour chiffrer les colonnes sensibles. Cela concernait les noms et les identifiants de connexion ainsi que l’INS et le RPPS. Le sexe et la date de naissance étaient aussi chiffrés avec les valeurs des résultats. Les clés étaient conservées dans un fichier protégé.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Préparer les routes de l’API</h3>
+          <p>Le fichier <code>.htaccess</code> réécrit les adresses de la forme <code>/results/{INS}/{Id_Examen}</code> vers le programme principal <code>results.py</code>. Ce programme prend en charge les méthodes GET et POST ainsi que PUT et DELETE.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Valider les requêtes</h3>
+          <p>J’ai séparé les contrôles de présence des paramètres et les contrôles de validité. Ils portent sur l’adresse et les en-têtes ainsi que sur le corps de la requête. Un autre contrôle empêche d’ajouter un résultat déjà attribué.</p>
+          <p class="why">Cette organisation permet de repérer les erreurs avant de modifier la base et de renvoyer un message adapté.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Contrôler l’identité et les droits</h3>
+          <p>L’authentification repose sur HTTP Basic. Ce mécanisme doit être utilisé avec HTTPS pour protéger les échanges. Après l’authentification les contrôles vérifient si le rôle permet l’opération demandée sur le dossier concerné.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Structurer les réponses et déboguer</h3>
+          <p>Les réponses JSON contiennent les champs <code>CODE</code> et <code>TEXT</code> ainsi que <code>DATA</code>. Les messages permettent de distinguer les erreurs des requêtes réussies. J’ai ajouté des affichages de contrôle pour suivre les étapes et localiser les problèmes dans les 20 fichiers Python.</p>
+        </div>
+      </li>
+    </ol>
+
+    <h3 class="tm-subheading">Le parcours d’une requête</h3>
+    <div class="pipe">
+      <span>Requête HTTP</span><i aria-hidden="true">→</i>
+      <span>.htaccess</span><i aria-hidden="true">→</i>
+      <span>results.py</span><i aria-hidden="true">→</i>
+      <span>Contrôle des paramètres et des droits</span><i aria-hidden="true">→</i>
+      <span>Base MySQL chiffrée</span><i aria-hidden="true">→</i>
+      <span>Réponse JSON</span>
+    </div>
+    <div class="tw tm-tech">
+      <table>
+        <tbody>
+          <tr><th scope="row">Méthodes</th><td><code>GET</code> pour lire. <code>POST</code> pour ajouter. <code>PUT</code> pour modifier. <code>DELETE</code> pour supprimer.</td></tr>
+          <tr><th scope="row">Adresse</th><td><code>/results/{INS}/{Id_Examen}</code></td></tr>
+          <tr><th scope="row">Authentification</th><td>HTTP Basic avec HTTPS requis.</td></tr>
+          <tr><th scope="row">Format</th><td>Réponses JSON avec les champs <code>CODE</code> et <code>TEXT</code> ainsi que <code>DATA</code>.</td></tr>
+          <tr><th scope="row">Codes HTTP utilisés</th><td>200 pour un succès. 404 pour une erreur d’adresse. 500 pour une erreur interne.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <h2>Démonstration</h2>
+  <section class="tm-demo" aria-labelledby="tm-demo-title">
+    <span class="tm-eyebrow">SIMULATION INTERACTIVE · DONNÉES FICTIVES</span>
+    <h3 id="tm-demo-title">Qui peut agir sur quel dossier ?</h3>
+    <p>Cette simulation illustre les droits prévus dans le projet. Elle fonctionne dans votre navigateur avec des dossiers fictifs.</p>
+    <div class="tm-controls">
+      <label>Profil
+        <select id="tm-role"><option value="patient">Patient A</option><option value="doctor">Médecin de A</option><option value="lab">Laboratoire</option></select>
+      </label>
+      <label>Opération
+        <select id="tm-method"><option>GET</option><option>POST</option><option>PUT</option><option>DELETE</option></select>
+      </label>
+      <label>Dossier
+        <select id="tm-target"><option value="A">Dossier fictif A</option><option value="B">Dossier fictif B</option></select>
+      </label>
+    </div>
+    <p class="tm-small">Le patient A et son médecin peuvent lire le dossier A. Le laboratoire dispose des quatre opérations sur les deux dossiers.</p>
+    <div class="tm-actions">
+      <button type="button" id="tm-run">Simuler la requête →</button>
+      <button type="button" id="tm-reset">Réinitialiser</button>
+    </div>
+    <p class="tm-state" id="tm-state" aria-live="polite">Choisissez un scénario puis lancez la simulation.</p>
+    <pre><code id="tm-response">{
+  "DEMO": true,
+  "MESSAGE": "En attente d’une simulation"
+}</code></pre>
+    <details class="tm-scenario">
+      <summary>Comprendre le scénario</summary>
+      <p class="tm-small">Au départ le dossier A contient la valeur 42 et le dossier B ne contient aucun résultat. POST crée une valeur de 42. PUT la remplace par 43. Ces nombres n’ont aucune signification clinique. Les changements sont temporaires et disparaissent au rechargement de la page.</p>
+    </details>
+  </section>
+
+  <h2>Tests réalisés</h2>
+  <p class="tm-prose">J’ai testé manuellement les quatre méthodes avec l’extension RESTED en utilisant le profil laboratoire. Ce profil était le seul à disposer de tous les droits. Les tests ont porté sur la lecture et l’ajout ainsi que sur la modification et la suppression des résultats.</p>
+
+  <details class="tm-details">
+    <summary>Voir les tests et les exemples de réponses JSON</summary>
+    <div class="tw">
+      <table>
+        <thead><tr><th scope="col">Méthode</th><th scope="col">Test</th><th scope="col">Réponse observée</th></tr></thead>
+        <tbody>
+          <tr><td><b>GET</b></td><td>Lire le résultat d’un patient pour un examen.</td><td>Résultat déchiffré renvoyé avec <code>QUERY_OK</code>.</td></tr>
+          <tr><td><b>POST</b></td><td>Ajouter un résultat.</td><td>Valeur enregistrée pour le bon patient. Si elle existe déjà le service renvoie <code>ALREADY_ASSIGNED_RESULT</code>.</td></tr>
+          <tr><td><b>PUT</b></td><td>Modifier un résultat.</td><td>Valeur mise à jour. Si elle n’existe pas le service renvoie <code>UNASSIGNED_RESULT</code>.</td></tr>
+          <tr><td><b>DELETE</b></td><td>Supprimer un résultat puis tenter de le relire.</td><td>Suppression confirmée. Le GET suivant indique l’absence de valeur avec <code>UNASSIGNED_GRADE</code>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="two tm-code-pair">
+      <div>
+        <h3>Lecture réussie</h3>
+        <pre><code>{
+  &quot;CODE&quot;: &quot;QUERY_OK&quot;,
+  &quot;TEXT&quot;: &quot;La requête est conforme et a pu être exécutée correctement.&quot;,
+  &quot;DATA&quot;: [{
+    &quot;Id_Utilisateur&quot;: 3,
+    &quot;Id_Examen&quot;: &quot;3&quot;,
+    &quot;Libelle_Examen&quot;: &quot;Kaliémie&quot;,
+    &quot;Valeur&quot;: 6
+  }]
+}</code></pre>
+      </div>
+      <div>
+        <h3>Ajout refusé car le résultat existe déjà</h3>
+        <pre><code>{
+  &quot;CODE&quot;: &quot;ALREADY_ASSIGNED_RESULT&quot;,
+  &quot;TEXT&quot;: &quot;Le patient a déjà un résultat dans l&#x27;examen 1&quot;,
+  &quot;DATA&quot;: null
+}</code></pre>
+      </div>
+    </div>
+  </details>
+
+  <h2>Ce que je retiens</h2>
+  <p class="tm-prose">Le chiffrement m’a amenée à revoir les clés de la base dès la conception. J’ai aussi appris à séparer les contrôles des requêtes pour mieux comprendre les erreurs. Avec 20 fichiers Python les affichages de contrôle m’ont aidée à suivre les traitements étape par étape.</p>
+
+  <details class="tm-details">
+    <summary>Voir les pistes d’amélioration</summary>
+    <p class="tm-prose">Une première piste serait d’utiliser les codes LOINC pour identifier les examens avec une nomenclature commune aux laboratoires. Cela faciliterait les échanges entre systèmes.</p>
+    <p class="tm-prose">Je compléterais aussi les tests manuels par des tests automatisés. Les autres améliorations envisagées concernent le hachage des mots de passe et l’authentification par jetons ainsi que la journalisation des accès.</p>
+  </details>
+
+  <h2>Compétences mobilisées</h2>
+  <div class="tags">
+    <span>Modélisation de bases de données</span>
+    <span>SQL et MySQL</span>
+    <span>API REST</span>
+    <span>Python</span>
+    <span>Chiffrement (Fernet)</span>
+    <span>Authentification et droits</span>
+    <span>Données de santé et RGPD</span>
+    <span>Validation des entrées</span>
+    <span>Débogage</span>
+  </div>
+
+  <footer><a href="../index.html#projets">← Retour aux projets</a> · Projet réalisé à l’ESIEE Paris dans l’unité SEV-5206E.</footer>
+</main>
+<dialog id="tm-dialog" aria-label="Modèle de données agrandi"><div class="tm-dialog-bar"><span id="tm-zoom-title">Schéma</span><button type="button" id="tm-close">Fermer ×</button></div><div class="tm-scroll"><img id="tm-zoom-image" alt=""></div></dialog>
+<script>
+(() => {
+const role=document.getElementById('tm-role'),method=document.getElementById('tm-method'),target=document.getElementById('tm-target'),state=document.getElementById('tm-state'),response=document.getElementById('tm-response');
+let records={A:42,B:null};
+function reply(code,message,data=null){state.textContent=message;state.dataset.status=code==='DEMO_OK'?'ok':'notice';response.textContent=JSON.stringify({DEMO:true,CODE:code,MESSAGE:message,DATA:data},null,2);}
+document.getElementById('tm-run').addEventListener('click',()=>{
+const r=role.value,m=method.value,t=target.value;
+if(r!=='lab'&&(m!=='GET'||t!=='A')){reply('DEMO_ACCESS_DENIED','Accès refusé. Ce profil ne dispose pas des droits nécessaires.');return;}
+if(m==='GET'){if(records[t]===null){reply('DEMO_NOT_FOUND','Aucun résultat fictif dans ce dossier.');return;}reply('DEMO_OK','Lecture autorisée.',{DOSSIER:'Fictif '+t,EXAMEN:'Exemple sans valeur clinique',VALEUR:records[t]});}
+else if(m==='POST'){if(records[t]!==null){reply('DEMO_ALREADY_EXISTS','Ajout refusé. Un résultat fictif existe déjà.');return;}records[t]=42;reply('DEMO_OK','Résultat fictif ajouté.',{DOSSIER:'Fictif '+t,VALEUR:42});}
+else if(m==='PUT'){if(records[t]===null){reply('DEMO_NOT_FOUND','Modification impossible. Aucun résultat fictif n’est enregistré.');return;}records[t]=43;reply('DEMO_OK','Résultat fictif modifié.',{DOSSIER:'Fictif '+t,VALEUR:43});}
+else if(m==='DELETE'){if(records[t]===null){reply('DEMO_NOT_FOUND','Suppression impossible. Aucun résultat fictif n’est enregistré.');return;}records[t]=null;reply('DEMO_OK','Résultat fictif supprimé.');}
+});
+document.getElementById('tm-reset').addEventListener('click',()=>{records={A:42,B:null};role.value='patient';method.value='GET';target.value='A';reply('DEMO_RESET','Simulation réinitialisée.');});
+const dialog=document.getElementById('tm-dialog');document.querySelectorAll('.tm-zoom').forEach(link=>link.addEventListener('click',event=>{if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey||typeof dialog.showModal!=='function')return;event.preventDefault();const image=link.querySelector('img');document.getElementById('tm-zoom-image').src=image.src;document.getElementById('tm-zoom-image').alt=image.alt;document.getElementById('tm-zoom-title').textContent=image.alt;dialog.showModal();dialog.querySelector('.tm-scroll').scrollTo(0,0);}));
+document.getElementById('tm-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',event=>{if(event.target!==dialog)return;const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Détection d'arythmies ECG — Eden Zermati</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../projet.css">
+<style>
+.ec-compare{max-width:680px;margin:32px auto}.ec-compare h2{margin:0 0 12px}.ec-subtitle{font-size:12px;color:var(--mute)}.ec-choices{display:flex;gap:8px;margin:18px 0}.ec-choices button{flex:1;padding:11px 14px;background:var(--card);border:1px solid var(--line);border-radius:9px;font:inherit;font-size:14px;color:var(--ink);cursor:pointer}.ec-choices button[aria-pressed="true"]{background:var(--wine);color:var(--bg);border-color:var(--wine)}.ec-choices button:focus-visible,.ec-image-link:focus-visible,#ec-close:focus-visible{outline:3px solid var(--wine);outline-offset:4px}.ec-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:center;gap:22px}.ec-layout figure{margin:0}.ec-image-link{display:block;cursor:zoom-in;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}.ec-image-link img{display:block;max-width:100%;height:auto}.ec-layout figcaption{font-size:11px}.ec-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.ec-metrics div{border-bottom:1px solid var(--line);padding:6px 0 10px}.ec-metrics dt{font-size:12px;color:var(--mute)}.ec-metrics dd{margin:3px 0 0;font-weight:600;font-size:23px;color:var(--wine);font-variant-numeric:tabular-nums}.ec-summary p{font-size:13px;line-height:1.65;margin:0;color:var(--mute)}.ec-link-detail{margin:18px 0 0;font-size:13px}a.ec-zoom{display:block;cursor:zoom-in}#ec-dialog{width:94vw;max-width:1100px;max-height:94dvh;overflow:auto;padding:18px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:12px}#ec-dialog::backdrop{background:#17100dd9}.ec-dialog-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px;font-size:14px}#ec-close{font:inherit;padding:8px 12px;border:1px solid var(--line);border-radius:7px;background:var(--card);color:var(--ink);cursor:pointer}#ec-zoom-image{display:block;max-width:100%;height:auto;margin:auto;background:white}@media(max-width:540px){.ec-layout{grid-template-columns:1fr;gap:18px}.ec-layout figure{max-width:320px;margin:0 auto}.ec-metrics{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.ec-metrics dd{font-size:18px}.ec-choices button{font-size:13px;padding:10px 8px}}@media(max-width:350px){.ec-metrics{grid-template-columns:1fr 1fr}}
+</style>
+<style>.ec-result-subheading{margin:24px 0 12px}.ec-compare #ec-title{margin:0 0 12px;font-size:21px}</style>
+
+<style>
+.ec-compact-figure{max-width:480px;margin:24px auto}.ec-compact-figure .fr{padding:10px;border-radius:10px}.ec-compact-figure .ec-zoom{width:100%}.ec-compact-figure img{width:100%;height:auto}.ec-compact-figure figcaption{font-size:12px;line-height:1.6;margin-top:9px}.ec-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card);margin:20px 0 10px}.ec-results-table{margin:0;width:100%;min-width:580px;border-collapse:collapse;font-size:14px}.ec-results-table caption{text-align:left;font-size:12px;color:var(--mute);padding:12px 16px;border-bottom:1px solid var(--line)}.ec-results-table thead th{background:var(--wine);color:var(--bg);font-size:12px;font-weight:600;padding:14px 16px;border:0}.ec-results-table tbody th{font-family:Inter,system-ui,sans-serif;font-style:normal;font-size:13px;line-height:1.5;color:var(--ink);font-weight:600;max-width:190px;padding:19px 16px}.ec-results-table tbody td{font-size:15px;padding:19px 16px;color:var(--ink);font-variant-numeric:tabular-nums;vertical-align:middle}.ec-results-table tbody tr:nth-child(even){background:var(--bg)}.ec-results-table tbody tr:last-child>*{border-bottom:0}.ec-cell-score{display:flex;flex-direction:column;align-items:flex-end;gap:8px}.ec-bar{display:block;width:72px;height:4px;overflow:hidden;background:var(--line);border-radius:8px}.ec-bar i{display:block;height:100%;background:var(--wine);border-radius:8px}.ec-best-value{display:inline-block;color:var(--wine);font-weight:600;border:1px solid var(--wine);border-radius:5px;padding:1px 5px;white-space:nowrap}.ec-table-legend{font-size:12px;color:var(--mute);line-height:1.6;max-width:none;margin:0 0 24px}@media(max-width:540px){.ec-compact-figure{max-width:100%}.ec-table-wrap{border-radius:8px}.ec-results-table tbody td,.ec-results-table tbody th{padding:15px 12px}}
+</style>
+<style id="ec-details-style">
+.ec-details {
+  margin: 12px 0;
+  padding: 15px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.ec-details > summary {
+  cursor: pointer;
+  color: var(--wine);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.ec-details > summary::marker {
+  color: var(--wine);
+}
+.ec-details > summary:focus-visible {
+  outline: 3px solid var(--wine);
+  outline-offset: 5px;
+}
+.ec-details[open] > summary {
+  margin-bottom: 18px;
+}
+.ec-details-content > :first-child {
+  margin-top: 0;
+}
+.ec-details-content > :last-child {
+  margin-bottom: 0;
+}
+</style>
+<style id="ec-text-alignment">
+/* Alignement des paragraphes de la page ECG. */
+main > p:not(.hook):not(.q):not(.ec-table-legend),
+.ec-details .steps li > div,
+.ec-details .flow > div,
+main > .find,
+main > .two > div > p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+.ec-details .steps h3,
+.ec-details .flow h3,
+.find h3,
+.find figcaption {
+  text-align: left;
+  hyphens: manual;
+}
+
+@media (max-width: 680px) {
+  main > p:not(.hook):not(.q):not(.ec-table-legend),
+  .ec-details .steps li > div,
+  .ec-details .flow > div,
+  main > .find,
+  main > .two > div > p {
+    text-align: left;
+    hyphens: manual;
+  }
+}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="../index.html#projets">← Retour aux projets</a>
+
+<h1>Détection d’arythmies ECG</h1>
+<p class="hook">J’ai préparé les signaux ECG puis entraîné et comparé trois modèles d'intelligence artificielle pour repérer les battements anormaux chez de nouveaux patients.</p>
+
+<svg class="ecg" viewBox="0 0 712 90" preserveAspectRatio="none" role="img" aria-label="Tracé ECG"><path pathLength="1" vector-effect="non-scaling-stroke" d="M0,44 h40 q6,-10 14,0 h26 l5,6 l7,-38 l7,46 l5,-14 h20 q10,-14 24,0 h30 h40 q6,-10 14,0 h26 l5,6 l7,-38 l7,46 l5,-14 h20 q10,-14 24,0 h30 h40 q6,-10 14,0 h26 l5,6 l7,-38 l7,46 l5,-14 h20 q10,-14 24,0 h30"/></svg>
+
+<dl class="meta">
+  <div><dt>Type</dt><dd>Projet personnel</dd></div>
+  <div><dt>Période</dt><dd>Février – avril 2026</dd></div>
+  <div><dt>Données</dt><dd>MIT-BIH Arrhythmia Database</dd></div>
+  <div><dt>Outils</dt><dd>Python · scikit-learn · PyTorch</dd></div>
+</dl>
+
+<div class="kpi">
+  <div><b>101 015</b><span>battements analysés</span></div>
+  <div><b>47</b><span>patients dont 15 réservés au test</span></div>
+  <div><b>3</b><span>modèles et une variante</span></div>
+  <div><b>0,87</b><span>ROC-AUC sur le test</span></div>
+</div>
+
+<h2>Problématique</h2>
+<p class="q">Comment détecter automatiquement les battements ECG anormaux chez des patients dont les données n’ont pas servi à entraîner le modèle ?</p>
+
+<h2>Contexte</h2>
+<p>Un électrocardiogramme enregistre l’activité électrique du cœur. Une arythmie est un trouble du rythme cardiaque. Mon objectif est de repérer les battements anormaux dans ces signaux. Ce projet reste pédagogique et ne constitue pas un dispositif médical.</p>
+
+<h2>Ma contribution</h2>
+<p>J’ai préparé les données puis entraîné et comparé les différents modèles. J’ai construit une évaluation par patient et analysé les erreurs pour comprendre les limites de chaque approche.</p>
+
+<h2>Données</h2>
+<p>J’ai utilisé les annotations de la base MIT-BIH pour regrouper les battements retenus dans une classe normale et une classe anormale.</p>
+<div class="tw">
+  <table>
+    <tbody>
+      <tr><th scope="row">Source</th><td>MIT-BIH Arrhythmia Database sur PhysioNet. La base contient 48 enregistrements de 47 patients. Les signaux sont échantillonnés à 360 Hz.</td></tr>
+      <tr><th scope="row">Battements retenus</th><td>101 015 battements au total. Ils comprennent 75 022 battements normaux et 25 993 battements anormaux. La classe anormale représente 25,7 % des données.</td></tr>
+      <tr><th scope="row">Classes</th><td>La classe normale correspond à N. La classe anormale regroupe A · V · L · R · F · E · J. Les autres annotations sont exclues.</td></tr>
+      <tr><th scope="row">Segment</th><td>Chaque battement contient 252 points. Le segment commence 0,25 s avant le pic annoté et se termine 0,45 s après.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<figure class="ec-compact-figure">
+  <div class="fr">
+    <a class="ec-zoom" href="../images/ecg-donnees-battements.png" target="_blank" rel="noopener">
+      <img src="../images/ecg-donnees-battements.png" alt="Battement normal et battement anormal" width="1200">
+    </a>
+  </div>
+  <figcaption>Exemples de battements normal et anormal dans l’enregistrement 100.</figcaption>
+</figure>
+
+<h2>Méthode et outils</h2>
+<p>J’ai comparé une approche par variables calculées à un CNN 1D sur le signal normalisé. J’ai aussi testé l’apport des intervalles RR.</p>
+
+<details class="ec-details" id="ec-method-details">
+  <summary>Voir la méthode détaillée</summary>
+  <div class="ec-details-content">
+<ol class="steps">
+  <li>
+    <div>
+      <h3>Segmentation des battements</h3>
+      J’ai segmenté le signal autour des pics fournis dans les annotations. Chaque fenêtre contient 252 points et couvre 0,25 s avant le pic et 0,45 s après. J’ai utilisé ces segments pour étudier la morphologie des battements. Cela correspond à leur forme dans le signal. La détection automatique des pics n’est pas étudiée ici.
+    </div>
+  </li>
+  <li>
+    <div>
+      <h3>Normalisation par Z-score</h3>
+      J’ai normalisé chaque segment par Z-score avant de l’envoyer au CNN. Cette transformation réduit les différences d’échelle entre les battements. Le modèle peut ainsi comparer leur forme. J’ai conservé le signal brut pour calculer les variables d’amplitude des modèles classiques.
+    </div>
+  </li>
+  <li>
+    <div>
+      <h3>Modèles classiques et CNN 1D</h3>
+      J’ai entraîné une régression logistique et un Random Forest à partir de variables calculées sur chaque battement. J’ai comparé leurs résultats à ceux d’un CNN 1D. Ce réseau de neurones convolutif apprend à repérer des motifs directement dans les segments normalisés.
+      <p class="why">J’ai utilisé la régression logistique comme référence. Le Random Forest m’a aussi permis d’examiner l’importance des variables. J’ai testé une variante sans les intervalles RR pour mesurer l’apport du rythme.</p>
+    </div>
+  </li>
+  <li>
+    <div>
+      <h3>Pondération des classes</h3>
+      Les battements anormaux représentent 25,7 % des données. J’ai pondéré les classes pendant l’entraînement de chaque modèle pour tenir compte de ce déséquilibre. Les erreurs sur la classe anormale ont ainsi davantage de poids dans l’apprentissage.
+    </div>
+  </li>
+  <li>
+    <div>
+      <h3>Optimisation du seuil de décision</h3>
+      Le seuil détermine à partir de quel score un battement est considéré comme anormal. J’ai choisi sur le jeu de validation celui qui donne le meilleur score F2. Je l’ai ensuite comparé au seuil habituel de 0,5 pour voir son effet sur le nombre d’anomalies détectées et de fausses alertes.
+      <p class="why">Le score F2 donne plus de poids au rappel qu’à la précision. J’ai réglé le seuil sur la validation et gardé le jeu de test pour l’évaluation finale.</p>
+    </div>
+  </li>
+</ol>
+
+<div class="flow">
+  <div>
+    <h3>Variables morphologiques et intervalles RR</h3>
+    J’ai calculé 17 variables par battement. Les 13 variables morphologiques décrivent notamment l’énergie et l’amplitude du signal. Elles prennent aussi en compte les pentes ainsi que l’aire et la largeur du battement. Les 4 variables de rythme reposent sur les intervalles RR. Un intervalle RR est le temps entre deux pics R successifs. J’ai entraîné une régression logistique et un Random Forest de 300 arbres de décision avec ces variables. J’ai aussi testé le Random Forest avec les seules variables morphologiques.
+  </div>
+  <div>
+    <h3>Architecture du CNN 1D</h3>
+    J’ai construit un CNN 1D sous PyTorch pour analyser les segments normalisés. J’ai utilisé 3 blocs convolutifs de 16 puis 32 puis 64 filtres. L’architecture comprend BatchNorm et un dropout de 0,3. J’ai entraîné le réseau pendant 10 époques. Le modèle ne reçoit aucune variable de rythme.
+  </div>
+</div>
+  </div>
+</details>
+
+<details class="ec-details" id="ec-tools-details">
+  <summary>Voir les outils et leur utilisation</summary>
+  <div class="ec-details-content">
+<div class="tw">
+  <table>
+    <thead><tr><th>Outil</th><th>Utilisation</th><th>Ce que cela apporte</th></tr></thead>
+    <tbody>
+      <tr><td>Python et wfdb</td><td>Lecture des signaux et des annotations</td><td>Accès aux données PhysioNet avec une bibliothèque dédiée</td></tr>
+      <tr><td>NumPy et pandas</td><td>Préparation des segments et des variables</td><td>Calculs sur plus de 100 000 battements</td></tr>
+      <tr><td>scikit-learn</td><td>Modèles classiques et évaluation</td><td>Découpage par groupes de patients et calcul des métriques</td></tr>
+      <tr><td>PyTorch</td><td>Développement du CNN 1D</td><td>Choix de l’architecture et suivi de l’entraînement</td></tr>
+      <tr><td>Jupyter et Matplotlib</td><td>Notebooks et graphiques</td><td>Suivi des étapes du projet et présentation des résultats</td></tr>
+    </tbody>
+  </table>
+</div>
+  </div>
+</details>
+
+<h2>Protocole d’évaluation</h2>
+<p>J’ai séparé les données par patient pour tester les modèles sur des personnes absentes de l’entraînement. Les trois ensembles ne contiennent aucun patient en commun.</p>
+<div class="split" role="img" aria-label="25 patients en entraînement et 7 en validation et 15 en test">
+  <span class="s1">Entraînement · 25 patients</span>
+  <span class="s2">Validation · 7</span>
+  <span class="s3">Test · 15</span>
+</div>
+<p style="color:var(--mute);font-size:14px">Le jeu d’entraînement contient 55 821 battements. La validation en contient 13 210 et le test 31 984.</p>
+
+<h2 id="ec-results">Résultats</h2>
+<p>J’ai évalué les modèles sur les 15 patients du test. Les scores portent sur la classe anormale. La précision et le rappel ainsi que le score F1 sont calculés avec un seuil de 0,5.</p>
+<p>Le rappel indique la part des battements anormaux repérés par le modèle. La précision indique la part de vraies anomalies parmi les battements signalés comme anormaux. La ROC-AUC résume la capacité du modèle à séparer les deux classes sur l’ensemble des seuils.</p>
+
+<h3 class="ec-result-subheading">Comparaison des modèles</h3>
+<div class="ec-table-wrap"><table class="ec-results-table">
+<caption>Résultats sur les 15 patients du test. Classe anormale.</caption>
+<thead><tr><th scope="col">Modèle</th><th scope="col" class="n">ROC-AUC</th><th scope="col" class="n">Précision</th><th scope="col" class="n">Rappel</th><th scope="col" class="n">F1</th></tr></thead><tbody><tr><th scope="row">Régression logistique</th><td class="n"><span>0,812</span></td><td class="n"><div class="ec-cell-score"><span>34,1 %</span><span class="ec-bar" aria-hidden="true"><i style="width:34.1%"></i></span></div></td><td class="n"><div class="ec-cell-score"><span>79,2 %</span><span class="ec-bar" aria-hidden="true"><i style="width:79.2%"></i></span></div></td><td class="n"><span>0,477</span></td></tr><tr><th scope="row">Random Forest</th><td class="n"><span>0,864</span></td><td class="n"><div class="ec-cell-score"><span>50,9 %</span><span class="ec-bar" aria-hidden="true"><i style="width:50.9%"></i></span></div></td><td class="n"><div class="ec-cell-score"><span>89,6 %</span><span class="ec-bar" aria-hidden="true"><i style="width:89.6%"></i></span></div></td><td class="n"><span>0,650</span></td></tr><tr><th scope="row">Random Forest sans RR</th><td class="n"><span>0,856</span></td><td class="n"><div class="ec-cell-score"><span>51,8 %</span><span class="ec-bar" aria-hidden="true"><i style="width:51.8%"></i></span></div></td><td class="n"><div class="ec-cell-score"><strong class="ec-best-value">89,8 %</strong><span class="ec-bar" aria-hidden="true"><i style="width:89.8%"></i></span></div></td><td class="n"><strong class="ec-best-value">0,657</strong></td></tr><tr><th scope="row">CNN 1D</th><td class="n"><strong class="ec-best-value">0,867</strong></td><td class="n"><div class="ec-cell-score"><strong class="ec-best-value">55,2 %</strong><span class="ec-bar" aria-hidden="true"><i style="width:55.2%"></i></span></div></td><td class="n"><div class="ec-cell-score"><span>71,6 %</span><span class="ec-bar" aria-hidden="true"><i style="width:71.6%"></i></span></div></td><td class="n"><span>0,623</span></td></tr></tbody></table></div>
+<p class="ec-table-legend">Les valeurs encadrées indiquent le meilleur score de chaque colonne. Le score F1 combine la précision et le rappel. Aucun modèle n’obtient le meilleur résultat sur tous les critères.</p>
+
+<section class="ec-compare" aria-labelledby="ec-title">
+  <h3 id="ec-title">Matrices de confusion du Random Forest et du CNN</h3>
+  <p class="ec-subtitle">15 patients de test · Classe anormale · Seuil 0,5</p>
+  <p class="ec-subtitle">J’ai utilisé ces matrices pour examiner les anomalies manquées et les battements normaux signalés à tort.</p>
+
+  <div class="ec-choices" role="group" aria-label="Choisir le modèle">
+    <button type="button" data-model="rf" aria-pressed="true">Random Forest</button>
+    <button type="button" data-model="cnn" aria-pressed="false">CNN 1D</button>
+  </div>
+
+  <div class="ec-layout">
+    <figure>
+      <a class="ec-image-link" href="../images/ecg-matrice-rf.png" target="_blank" rel="noopener">
+        <img id="ec-matrix" src="../images/ecg-matrice-rf.png" alt="Matrice de confusion du Random Forest" width="480">
+      </a>
+      <figcaption>Cliquez sur la matrice pour l’agrandir.</figcaption>
+    </figure>
+
+    <div class="ec-summary" aria-live="polite" aria-atomic="true">
+      <h3 id="ec-model-title">Random Forest</h3>
+      <dl class="ec-metrics">
+        <div><dt>ROC-AUC</dt><dd id="ec-auc">0,864</dd></div>
+        <div><dt>Précision</dt><dd id="ec-precision">50,9 %</dd></div>
+        <div><dt>Rappel</dt><dd id="ec-recall">89,6 %</dd></div>
+        <div><dt>F1</dt><dd id="ec-f1">0,650</dd></div>
+      </dl>
+      <p id="ec-model-description">Le Random Forest utilise 13 variables morphologiques et 4 variables de rythme. Il contient 300 arbres.</p>
+    </div>
+  </div>
+</section>
+
+<h3 class="ec-result-subheading">Courbes précision-rappel</h3>
+<figure class="ec-compact-figure">
+  <div class="fr">
+    <a class="ec-zoom" href="../images/ecg-precision-rappel.png" target="_blank" rel="noopener">
+      <img src="../images/ecg-precision-rappel.png" alt="Courbes précision-rappel" width="640">
+    </a>
+  </div>
+  <figcaption>Évolution de la précision et du rappel des modèles classiques sur le test.</figcaption>
+</figure>
+
+<h2>Ce que j’en conclus</h2>
+
+<div class="find">
+  <h3>Des ROC-AUC proches avec des compromis différents</h3>
+ J’ai obtenu une ROC-AUC de 0,867 avec le CNN et de 0,864 avec le Random Forest. Ces valeurs sont proches. Le rappel du Random Forest atteint 89,6 % au seuil de 0,5. Celui du CNN est de 71,6 %. Le Random Forest repère donc davantage de battements anormaux.
+  <p>Le CNN a une meilleure précision avec 55,2 % contre 50,9 %. Il obtient ces résultats sans calculer les variables utilisées par les modèles classiques. Je n’observe pas de modèle meilleur sur tous les critères.</p>
+</div>
+
+<div class="find">
+  <h3>Un apport limité des intervalles RR dans cet essai</h3>
+  J’ai comparé le Random Forest avec et sans les intervalles RR pour isoler leur effet. Leur ajout augmente la ROC-AUC de 0,008 mais réduit la précision moyenne de 0,059. Cette précision moyenne résume la courbe précision-rappel. Elle est différente de la précision au seuil de 0,5 présentée dans le tableau. J’ai aussi examiné l’importance des variables. Les variables de forme restent les plus importantes dans ce modèle.
+
+  <figure class="ec-compact-figure">
+    <div class="fr">
+      <a class="ec-zoom" href="../images/ecg-importance-features.png" target="_blank" rel="noopener">
+        <img src="../images/ecg-importance-features.png" alt="Importance des variables du Random Forest" width="640">
+      </a>
+    </div>
+    <figcaption>Les variables de forme dominent dans l’importance calculée par le Random Forest.</figcaption>
+  </figure>
+</div>
+
+<div class="find">
+  <h3>Le choix du seuil reste fragile</h3>
+ J’ai retenu un seuil de 0,012 pour le Random Forest à partir des 7 patients de validation. J’ai constaté qu’il donne un rappel de 99,99 % sur le test mais une précision de 24,8 %. Presque tous les battements sont alors signalés comme anormaux. Le score F2 passe de 0,778 à 0,623.
+  <p>Le même réglage améliore le score F2 du CNN. Il passe de 0,676 à 0,750. Le seuil choisi sur un petit groupe de patients ne fonctionne donc pas aussi bien pour tous les modèles sur le test.</p>
+</div>
+
+<div class="find">
+  <h3>Les résultats varient selon les patients</h3>
+ J’ai examiné la répartition des battements anormaux entre les patients du test. Les enregistrements 207 et 214 contiennent presque uniquement des battements anormaux. Ils représentent à eux seuls 54 % des battements anormaux du test. Un autre enregistrement ne contient aucune anomalie. Cette répartition m’a montré que les scores globaux dépendent beaucoup des patients présents dans le test.
+</div>
+
+<h2>Limites et suite</h2>
+<div class="two">
+  <div>
+    <h3>Limites</h3>
+    <p>Je n’ai pas calculé d’intervalles de confiance. La validation repose sur 7 patients seulement. Les modèles distinguent les battements normaux des battements anormaux sans identifier le type d’anomalie. </p>
+  </div>
+  <div>
+    <h3>Pistes</h3>
+    <p>Je pourrais tester plusieurs découpages avec une validation croisée par groupes de patients. Cela permettrait aussi de revoir le choix du seuil. Un bootstrap permettrait d’estimer des intervalles de confiance. Je pourrais ensuite combiner le signal et le rythme dans le CNN ou essayer de reconnaître les différents types d’anomalies.</p>
+  </div>
+</div>
+
+<h2>Compétences mobilisées</h2>
+<div class="tags">
+  <span>Collecte et préparation</span>
+  <span>Feature engineering</span>
+  <span>Machine Learning</span>
+  <span>Deep Learning</span>
+  <span>Évaluation par patient</span>
+  <span>Traitement du signal</span>
+  <span>Données de santé</span>
+  <span>Python</span>
+  <span>scikit-learn</span>
+  <span>PyTorch</span>
+</div>
+
+<footer>
+  <a href="../index.html#projets">← Retour aux projets</a>
+  · Données issues de la MIT-BIH Arrhythmia Database de Moody &amp; Mark sur PhysioNet.
+</footer>
+</main>
+
+<dialog id="ec-dialog" aria-label="Graphique agrandi"><div class="ec-dialog-bar"><span id="ec-zoom-title">Graphique</span><button type="button" id="ec-close">Fermer ×</button></div><img id="ec-zoom-image" alt=""></dialog>
+<script>
+(() => {
+  const models = {
+    rf: {title: 'Random Forest', image: '../images/ecg-matrice-rf.png', auc: '0,864', precision: '50,9 %', recall: '89,6 %', f1: '0,650', description: 'Le Random Forest utilise 13 variables morphologiques et 4 variables de rythme. Il contient 300 arbres.'},
+    cnn: {title: 'CNN 1D', image: '../images/ecg-matrice-cnn.png', auc: '0,867', precision: '55,2 %', recall: '71,6 %', f1: '0,623', description: 'Le CNN 1D analyse les segments normalisés avec 3 blocs convolutifs. Il ne reçoit aucune variable de rythme.'}
+  };
+  const buttons = [...document.querySelectorAll('[data-model]')];
+  const matrix = document.getElementById('ec-matrix');
+  buttons.forEach(button => button.addEventListener('click', () => {
+    const model = models[button.dataset.model];
+    buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    matrix.src = model.image;
+    matrix.alt = 'Matrice de confusion ' + model.title;
+    matrix.parentElement.href = model.image;
+    document.getElementById('ec-model-title').textContent = model.title;
+    document.getElementById('ec-model-description').textContent = model.description;
+    ['auc','precision','recall','f1'].forEach(key => document.getElementById('ec-' + key).textContent = model[key]);
+  }));
+  const dialog = document.getElementById('ec-dialog');
+  document.querySelectorAll('.ec-zoom, .ec-image-link').forEach(link => {
+    link.addEventListener('click', event => {
+      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || typeof dialog.showModal !== 'function') return;
+      event.preventDefault();
+      const image = link.querySelector('img');
+      document.getElementById('ec-zoom-image').src = image.src;
+      document.getElementById('ec-zoom-image').alt = image.alt;
+      document.getElementById('ec-zoom-title').textContent = image.alt;
+      dialog.showModal();
+    });
+  });
+  document.getElementById('ec-close').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', event => {
+    if (event.target !== dialog) return;
+    const r = dialog.getBoundingClientRect();
+    if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) dialog.close();
+  });
+})();
+</script>
+</body>
+</html>
