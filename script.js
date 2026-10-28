@@ -163,4 +163,4 @@ const io = typeof IntersectionObserver === "function" ? new IntersectionObserver
 draw();
 document.querySelectorAll(".rv").forEach(element => io.observe(element));
 const dashboardHighlight = document.querySelector('.hs a[href="projets/dashboard.html"] small');
-if (dashboardHighlight) d
+if (dashboardHighlight) dashboardHighlight.textContent = "6,4 M de lignes · 8 pages";

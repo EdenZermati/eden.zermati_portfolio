@@ -1,0 +1,83 @@
+/* Boutons de langue communs aux deux versions du portfolio. */
+.portfolio-language-switch {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line, #e4dbcf);
+  border-radius: 999px;
+  background: var(--card, #fffcf8);
+}
+
+.portfolio-language-switch a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  min-height: 32px;
+  padding: 6px 7px;
+  border-radius: 999px;
+  color: var(--mute, #6a605a);
+  font: 600 11px/1.4 Inter, system-ui, sans-serif;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.portfolio-language-switch a:hover {
+  color: var(--wine, #7a263a);
+}
+
+.portfolio-language-switch a[aria-current="page"] {
+  background: var(--wine, #7a263a);
+  color: var(--onwine, #fffcf8);
+}
+
+.portfolio-language-switch a:focus-visible {
+  outline: 2px solid var(--wine, #7a263a);
+  outline-offset: 3px;
+}
+
+.portfolio-language-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.portfolio-language-row .back {
+  margin-bottom: 0;
+}
+
+@media (max-width: 580px) {
+  .site-nav .w {
+    column-gap: 6px;
+    padding-inline: 16px;
+  }
+  .site-nav .w > b {
+    font-size: 17px;
+  }
+  .site-nav .nav-toggle {
+    font-size: 0;
+    gap: 0;
+    padding: 8px;
+    min-height: 40px;
+  }
+  .site-nav .nav-toggle svg {
+    width: 20px;
+    height: 20px;
+  }
+  .site-nav .nav-cv {
+    padding: 8px;
+    font-size: 13px;
+    min-height: 40px;
+  }
+  .portfolio-language-switch a {
+    min-width: 25px;
+    padding: 6px 4px;
+  }
+  .portfolio-language-row {
+    margin-bottom: 22px;
+  }
+}
