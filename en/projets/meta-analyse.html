@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Phthalates and childhood asthma meta-analysis — Eden Zermati</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../projet.css">
+  <style>
+    .kpi{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .ma-prose,
+    .ma-details .steps p{
+      text-align:justify;
+      text-justify:inter-word;
+      hyphens:auto;
+    }
+    .note p{max-width:none;margin:8px 0 0}
+    .ma-journey{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+      margin:24px 0;
+    }
+    .ma-journey article{
+      min-width:0;
+      padding:18px 16px;
+      background:var(--card);
+      border-top:3px solid var(--wine);
+      border-radius:0 0 9px 9px;
+    }
+    .ma-journey article>span{
+      display:block;
+      font-size:10px;
+      letter-spacing:.07em;
+      font-weight:600;
+      color:var(--wine);
+      margin-bottom:12px;
+    }
+    .ma-journey h3{font-size:20px;margin-bottom:12px}
+    .ma-journey p{font-size:13px;line-height:1.75}
+    .ma-journey small{font-size:11px;color:var(--mute)}
+    .ma-details{
+      padding:15px 0;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      margin:20px 0;
+    }
+    .ma-details summary{
+      font-size:14px;
+      color:var(--wine);
+      font-weight:600;
+      cursor:pointer;
+    }
+    .ma-details[open] summary{margin-bottom:16px}
+    .ma-details summary:focus-visible{outline:3px solid var(--wine);outline-offset:4px}
+    .ma-details .steps p{max-width:none;margin:8px 0 0}
+    .ma-details .steps li>div{min-width:0}
+    .tw{
+      border:1px solid var(--line);
+      border-radius:10px;
+      margin:20px 0 0;
+      background:var(--card);
+    }
+    .tw table{margin:0}
+    .tw th{color:var(--wine);background:var(--bg);min-width:110px}
+    .tw th,.tw td{padding:13px 15px;vertical-align:top}
+    .tw tr:last-child>*{border-bottom:0}
+    @media(max-width:680px){
+      .ma-journey{grid-template-columns:1fr}
+      .ma-prose,
+      .ma-details .steps p{text-align:left;hyphens:none}
+    }
+    @media(max-width:540px){
+      .kpi{grid-template-columns:1fr}
+    }
+  </style>
+<link rel="stylesheet" href="../../langues.css">
+<link rel="alternate" hreflang="fr" href="../../projets/meta-analyse.html">
+<link rel="alternate" hreflang="en" href="meta-analyse.html">
+</head>
+<body>
+<main>
+  <div class="portfolio-language-row"><a class="back" href="../index.html#projets">← Back to projects</a><div class="portfolio-language-switch" role="group" aria-label="Portfolio language"><a href="../../projets/meta-analyse.html" lang="fr" hreflang="fr" aria-label="Afficher cette page en français">FR</a><a href="meta-analyse.html" lang="en" hreflang="en" aria-label="Display this page in English" aria-current="page">EN</a></div></div>
+
+  <h1>Meta-analysis of phthalates and childhood asthma</h1>
+  <p class="hook">I worked with 30 studies to investigate the association between phthalate exposure and childhood asthma.</p>
+
+  <dl class="meta">
+    <div><dt>Type</dt><dd>Internship</dd></div>
+    <div><dt>Period</dt><dd>June – August 2024</dd></div>
+    <div><dt>Organisation</dt><dd>SOCOTEC Environnement · Health and Product Risk team</dd></div>
+    <div><dt>Tools</dt><dd>R · metafor · Excel · Zotero</dd></div>
+  </dl>
+
+  <div class="kpi">
+    <div><b>30</b><span>studies in the working dataset</span></div>
+    <div><b>3</b><span>bibliographic databases searched</span></div>
+    <div><b>11</b><span>weeks of internship</span></div>
+  </div>
+
+  <h2>Project question</h2>
+  <p class="q">How can studies of phthalates and childhood asthma be combined to estimate an association while accounting for their differences?</p>
+
+  <div class="note">
+    <b>Confidentiality</b>
+    <p class="ma-prose">For confidentiality reasons I cannot share the results obtained during this internship. This page describes my role and the method used. The results and associated charts are not shown.</p>
+  </div>
+
+  <h2>Context</h2>
+  <p class="ma-prose">This internship investigated the association between phthalate exposure and childhood asthma. My task was to assess whether findings from published studies could be pooled in a meta-analysis and then carry out the analysis.</p>
+  <p class="ma-prose">A meta-analysis combines estimates from several studies to produce an overall estimate. Before running the calculations I needed to check that the studies were sufficiently comparable.</p>
+
+  <h2>My contribution</h2>
+  <p class="ma-prose">I worked with another person on the preliminary steps. I then assessed feasibility and carried out the meta-analysis independently.</p>
+
+  <div class="ma-journey">
+    <article>
+      <span>01 · SELECT</span>
+      <h3>Finding the studies</h3>
+      <p>We defined the research question, then searched and screened publications across three bibliographic databases.</p>
+      <small>Preliminary work in a pair</small>
+    </article>
+    <article>
+      <span>02 · COMPARE</span>
+      <h3>Assessing feasibility</h3>
+      <p>I compiled study characteristics in Excel to check which data could be compared.</p>
+      <small>Excel · Critical appraisal</small>
+    </article>
+    <article>
+      <span>03 · ANALYSE</span>
+      <h3>Carrying out the meta-analysis</h3>
+      <p>I pooled estimates in R with metafor, then examined their variability and the influence of each study.</p>
+      <small>R · metafor</small>
+    </article>
+  </div>
+
+  <h2>Data used</h2>
+  <p class="ma-prose">I worked with aggregated data reported in the articles. These were each study’s estimates and confidence intervals. The publications came from PubMed, Scopus and Web of Science.</p>
+  <p class="ma-prose">The dataset included 23 studies using urinary measurements and seven using household dust measurements. I treated these two sample types separately.</p>
+
+  <h2>Approach</h2>
+  <p class="ma-prose">The work began with publication selection and data preparation. I then carried out the calculations and checks in R.</p>
+
+  <details class="ma-details">
+    <summary>See the six steps of my work</summary>
+    <ol class="steps">
+      <li>
+        <div>
+          <h3>Defining the question and protocol</h3>
+          <p>We structured the question using PICOTS. We then defined inclusion criteria and keywords. We used the Boolean operators AND, OR and NOT to build the search queries.</p>
+          <p class="why">The aim was to record our choices so the search could be repeated and the selection understood.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Searching and screening publications</h3>
+          <p>We searched three bibliographic databases and removed duplicates with Zotero. We screened titles and abstracts before reading the selected articles. The selection was documented using PRISMA to make the process explicit.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Checking what could be pooled</h3>
+          <p>I recorded study characteristics in Excel. I compared participant ages, sample sizes, study designs and sample types. I also checked for a measure of association with a 95% confidence interval. This could be an odds ratio, relative risk or hazard ratio.</p>
+          <p class="why">For this project I set a minimum of five studies per sample type and three per subgroup. These were project-specific criteria for assessing feasibility.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Pooling estimates in R</h3>
+          <p>For adjusted odds ratios I used the logarithm and standard error. Adjustment accounts for other factors measured in each study. I examined heterogeneity using I² and Cochran’s Q test to assess variability between studies.</p>
+          <p>In this project I used a fixed-effects model when I² was below 50% and a random-effects model otherwise. I calculated pooled estimates and confidence intervals with the metafor package.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Checking sensitivity</h3>
+          <p>I used Egger’s test and funnel plots to look for signs of possible publication bias. I also removed studies one at a time to check whether a single publication strongly influenced the overall estimate.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Examining subgroups</h3>
+          <p>I distinguished cohort studies from cross-sectional and case-control studies. I also considered exposure timing and the health outcome measured. Publications could concern prenatal or postnatal exposure and an asthma diagnosis or wheezing. I then combined two criteria to examine some comparisons in more detail.</p>
+        </div>
+      </li>
+    </ol>
+  </details>
+
+  <h2>Tools</h2>
+  <details class="ma-details">
+    <summary>See the tools and how I used them</summary>
+    <div class="tw">
+      <table>
+        <tbody>
+          <tr><th scope="row">R and metafor</th><td>Pooled estimates and heterogeneity calculations. Sensitivity and subgroup analyses. Egger’s test and funnel plots.</td></tr>
+          <tr><th scope="row">Excel</th><td>Extracting data from publications and harmonising study characteristics to assess feasibility.</td></tr>
+          <tr><th scope="row">Zotero</th><td>Managing bibliographic references and removing duplicates during study selection.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <h2>Skills used</h2>
+  <div class="tags">
+    <span>Systematic review</span>
+    <span>PRISMA</span>
+    <span>Meta-analysis</span>
+    <span>R</span>
+    <span>metafor</span>
+    <span>Heterogeneity (I²)</span>
+    <span>Publication bias</span>
+    <span>Sensitivity analysis</span>
+    <span>Critical appraisal of studies</span>
+    <span>Scientific synthesis</span>
+    <span>Environmental health</span>
+  </div>
+
+  <footer><a href="../index.html#projets">← Back to projects</a> · Internship at SOCOTEC Environnement.</footer>
+</main>
+</body>
+</html>

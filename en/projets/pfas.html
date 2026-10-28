@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Industrial PFAS discharge analysis — Eden Zermati</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../projet.css">
+<style>pre{background:var(--card);border-left:4px solid var(--wine);padding:12px 16px;overflow-x:auto;font-size:14px;line-height:1.55;margin:10px 0}code{font-family:ui-monospace,Consolas,monospace;font-size:.92em}</style>
+<style>.pipe{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:18px 0}.pipe span{background:var(--card);border-left:4px solid var(--wine);padding:8px 12px;font-size:14px}.pipe i{font-style:normal;color:var(--wine)}</style>
+
+
+<style>
+.pf-deliverables{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:24px 0 14px}.pf-deliverables article{padding:19px 17px;border-top:3px solid var(--wine);border-radius:0 0 10px 10px;background:var(--card)}.pf-kicker{display:block;font-size:10px;line-height:1.6;font-weight:600;letter-spacing:.08em;color:var(--wine);margin-bottom:11px}.pf-deliverables h3{font-size:20px;margin-bottom:12px}.pf-deliverables p{font-size:13px;line-height:1.75;margin-bottom:15px}.pf-delivery-type{font-size:11px;line-height:1.5;color:var(--mute)}.pf-small-note{font-size:12px;line-height:1.7;color:var(--mute);max-width:none;margin:14px 0}.pf-journey{list-style:none;padding:0;margin:24px 0}.pf-journey li{display:grid;grid-template-columns:38px 1fr;gap:14px;padding:18px 0;border-bottom:1px solid var(--line)}.pf-journey li>span{font-size:13px;font-weight:600;color:var(--wine);padding-top:3px}.pf-journey h3{font-size:20px;margin-bottom:8px}.pf-journey p{font-size:14px;margin:0;color:var(--mute)}.pf-example{margin:28px 0 34px;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.pf-example-intro h3{font-size:22px;margin-bottom:12px}.pf-example-intro p{font-size:14px}.pf-before-after{display:grid;grid-template-columns:1fr;gap:14px;max-width:680px;margin:20px auto}.pf-before-after h4{font-size:13px;margin:0 0 8px;color:var(--wine)}.pf-example-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--card)}.pf-example-scroll table{font-size:12px;margin:0;min-width:450px}.pf-example-scroll thead th{background:var(--wine);color:var(--bg);font-size:11px}.pf-example-scroll th,.pf-example-scroll td{padding:10px 12px}.pf-example-scroll tbody tr:last-child td{border-bottom:0}.pf-method-details,.pf-robustness{margin:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:15px 0}.pf-method-details>summary,.pf-robustness>summary{cursor:pointer;color:var(--wine);font-size:14px;font-weight:600}.pf-method-details>summary:focus-visible,.pf-robustness>summary:focus-visible{outline:3px solid var(--wine);outline-offset:5px}.pf-method-details[open]>summary,.pf-robustness[open]>summary{margin-bottom:14px}.pf-robustness li,.pf-robustness p{font-size:14px;line-height:1.75}.pf-robustness li{margin-bottom:10px}.pf-robustness ol{padding-left:22px}.pf-scope{font-size:11px;color:var(--wine);font-weight:600;letter-spacing:.02em;margin:0 0 9px}@media(max-width:680px){.pf-deliverables{grid-template-columns:1fr}.pf-deliverables article{padding:16px}.pf-deliverables h3{font-size:19px}.pf-journey li{gap:8px}}
+</style>
+<style id="pf-text-alignment">
+main > p:not(.hook):not(.pf-small-note),
+main > .note,
+.pf-deliverables article > p,
+.pf-journey p,
+.pf-example-intro > p,
+.pf-method-details .steps li > div {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+.pf-method-details h3,
+.pf-method-details summary {
+  text-align: left;
+  hyphens: manual;
+}
+.kpi.pf-scope-kpis {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (max-width: 680px) {
+  main > p:not(.hook):not(.pf-small-note),
+  main > .note,
+  .pf-deliverables article > p,
+  .pf-journey p,
+  .pf-example-intro > p,
+  .pf-method-details .steps li > div {
+    text-align: left;
+    hyphens: manual;
+  }
+}
+@media (max-width: 540px) {
+  .kpi.pf-scope-kpis {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+<link rel="stylesheet" href="../../langues.css">
+<link rel="alternate" hreflang="fr" href="../../projets/pfas.html">
+<link rel="alternate" hreflang="en" href="pfas.html">
+</head>
+<body>
+<main>
+<div class="portfolio-language-row"><a class="back" href="../index.html#projets">← Back to projects</a><div class="portfolio-language-switch" role="group" aria-label="Portfolio language"><a href="../../projets/pfas.html" lang="fr" hreflang="fr" aria-label="Afficher cette page en français">FR</a><a href="pfas.html" lang="en" hreflang="en" aria-label="Display this page in English" aria-current="page">EN</a></div></div>
+<h1>Analysis of industrial PFAS discharges</h1>
+<p class="hook">I brought together data from 13 public sources to study industrial PFAS discharges in France.</p>
+
+<dl class="meta">
+  <div><dt>Type</dt><dd>Final-year internship</dd></div>
+  <div><dt>Period</dt><dd>April – September 2025</dd></div>
+  <div><dt>Organisation</dt><dd>SOCOTEC Environnement, Health and Chemical Safety team</dd></div>
+  <div><dt>Tools</dt><dd>Python, VBA, Excel, Power BI, QGIS</dd></div>
+</dl>
+
+<div class="kpi pf-scope-kpis">
+  <div><b>13</b><span>regional datasets combined</span></div>
+  <div><b>2,573</b><span>sites in the working dataset</span></div>
+  <div><b>20</b><span>regulated PFAS monitored</span></div>
+</div>
+
+<h2>Project question</h2>
+<p class="q">How are industrial PFAS discharges distributed across France? In Auvergne-Rhône-Alpes, does their composition vary with the type of industrial activity?</p>
+
+<div class="note"><b>Confidential results.</b> The source data is publicly available. For confidentiality reasons I cannot share the results obtained during this internship. The charts and detailed conclusions are therefore not shown on this page.</div>
+
+<h2>Context</h2>
+
+<p>PFAS are a family of several thousand chemicals used in many products and industrial processes. They are often called ‘forever chemicals’ because they break down very slowly in the environment. Their presence raises health and environmental concerns. Understanding how much industrial sites discharge is one part of studying this issue.</p>
+
+<p>The French ministerial order of 20 June 2023 provides for a PFAS inventory and three analysis campaigns over three consecutive months for the industrial facilities concerned. The analyses cover 20 targeted PFAS and a broader indicator called adsorbable organic fluorine (AOF). Results submitted to the industrial facilities inspectorate were later published in regional datasets.</p>
+
+<p>During this internship I worked on a tool to centralise, analyse and visualise the data. I started with Auvergne-Rhône-Alpes before extending the work to the 13 regions of mainland France.</p>
+
+<h2>My contribution</h2>
+<p>I developed a VBA macro and Python scripts to prepare the data. I then calculated indicators, carried out statistical analyses and presented the findings through tables, charts and maps.</p>
+
+<div class="pf-deliverables">
+  <article>
+    <span class="pf-kicker">01 · DATA PREPARATION</span>
+    <h3>A VBA macro</h3>
+    <p>I placed campaigns for the same site and monitoring point on a single row in chronological order to make them easier to read in Excel.</p>
+    <span class="pf-delivery-type">VBA · Excel</span>
+  </article>
+  <article>
+    <span class="pf-kicker">02 · FILE COLLECTION</span>
+    <h3>Python scripts</h3>
+    <p>I wrote scripts to download regional files, harmonise their columns and combine them into a national dataset.</p>
+    <span class="pf-delivery-type">Python · Web scraping</span>
+  </article>
+  <article>
+    <span class="pf-kicker">03 · ANALYSIS</span>
+    <h3>Analyses, charts and maps</h3>
+    <p>I studied discharge loads and composition, then prepared material to present the main findings.</p>
+    <span class="pf-delivery-type">Python · Excel · Power BI · QGIS</span>
+  </article>
+</div>
+
+<h2>From regional to national data</h2>
+
+<ol class="pf-journey">
+  <li>
+    <span>01</span>
+    <div>
+      <h3>Starting with Auvergne-Rhône-Alpes</h3>
+      <p>I first explored the regional dataset to understand the campaign structure, clean the data and define the processing steps.</p>
+    </div>
+  </li>
+  <li>
+    <span>02</span>
+    <div>
+      <h3>Combining data from 13 regions</h3>
+      <p>The files did not all share the same structure. I adapted the processing to these differences so I could combine the data and compare discharges nationally.</p>
+    </div>
+  </li>
+  <li>
+    <span>03</span>
+    <div>
+      <h3>Studying discharge composition</h3>
+      <p>Alongside discharge loads I studied the substances present and their relationships. The link with industrial activity was analysed in Auvergne-Rhône-Alpes. Correlations and PCA used the national dataset.</p>
+    </div>
+  </li>
+</ol>
+
+<h2>Data used</h2>
+
+<div class="tw">
+  <table>
+    <tbody>
+      <tr><th scope="row">Source</th><td>Public datasets from the DREAL regional environment authorities and prefectures of the 13 mainland regions</td></tr>
+      <tr><th scope="row">Scope</th><td>Industrial facilities classified as ICPE, subject to authorisation and covered by the monitoring campaign. Data collected after June 2023.</td></tr>
+      <tr><th scope="row">Contents</th><td>Monitoring point, sampling date, substance (SANDRE code), result, unit, mass load in g/day and discharge type</td></tr>
+      <tr><th scope="row">Challenges</th><td>Different columns between regions, one row per sample and varying numbers of campaigns and substances between sites</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<section class="pf-example" aria-labelledby="pf-example-title">
+  <div class="pf-example-intro">
+    <span class="pf-kicker">ENTIRELY FICTIONAL EXAMPLE</span>
+    <h3 id="pf-example-title">Comparing campaigns for the same site</h3>
+    <p>In the original files, measurements for the same site were spread across several rows. The macro places them side by side for each monitoring point in campaign order. This simplified example shows one substance.</p>
+  </div>
+
+  <div class="pf-before-after">
+    <div>
+      <h4>Before · separate rows</h4>
+      <div class="pf-example-scroll">
+        <table>
+          <thead><tr><th>Fictional site</th><th>Monitoring point</th><th>Fictional substance</th><th>Campaign</th><th>Outcome</th></tr></thead>
+          <tbody>
+            <tr><td>Site A</td><td>P1</td><td>Compound X</td><td>C1</td><td>Measurement 1</td></tr>
+            <tr><td>Site A</td><td>P1</td><td>Compound X</td><td>C2</td><td>Measurement 2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <h4>After · campaigns side by side</h4>
+      <div class="pf-example-scroll">
+        <table>
+          <thead><tr><th>Fictional site</th><th>Monitoring point</th><th>Fictional substance</th><th>C1</th><th>C2</th></tr></thead>
+          <tbody><tr><td>Site A</td><td>P1</td><td>Compound X</td><td>Measurement 1</td><td>Measurement 2</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <p class="pf-small-note">This example does not reproduce any row from the internship dataset. The sites, substances and measurements are invented.</p>
+</section>
+
+<h2>Approach</h2>
+<p>I first prepared the files, then calculated the indicators and chose analyses suited to the research questions.</p>
+
+<details class="pf-method-details">
+  <summary>See the processing steps</summary>
+  <ol class="steps">
+    <li>
+      <div>
+        <h3>Restructuring the regional dataset</h3>
+        The VBA macro groups campaigns for the same site and monitoring point on one row. This makes it easier to compare measurements over time.
+      </div>
+    </li>
+    <li>
+      <div>
+        <h3>Collecting and harmonising regional files</h3>
+        A Python script downloads Excel and ODS files published by the prefectures. Columns and formats are then harmonised to combine the data into one dataset.
+      </div>
+    </li>
+    <li>
+      <div>
+        <h3>Calculating discharge loads</h3>
+        I calculated average loads by substance and monitoring point, then their sums. The calculations cover all measured substances, the 20 targeted PFAS and an extended set of 28 PFAS mentioned in the order. AOF was studied separately.
+        <p class="why">A mass load combines concentration and flow rate. It allows comparisons of the quantities discharged by different sites.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h3>Examining monitoring coverage and discharge distribution</h3>
+        I studied the number of campaigns completed, discharge types and substance quantification frequency. I then compared loads between sites and regions using measures including the median and the 80th and 90th percentiles.
+      </div>
+    </li>
+    <li>
+      <div>
+        <h3>Adding industrial activities in Auvergne-Rhône-Alpes</h3>
+        I identified activities using NAF/APE business codes available in public sources. I then grouped the sites into six categories to compare their PFAS profiles.
+      </div>
+    </li>
+    <li>
+      <div>
+        <h3>Comparing PFAS profiles</h3>
+        In Auvergne-Rhône-Alpes I used PERMANOVA with Bray-Curtis distance and 999 permutations to study the relationship with industrial activity. At national level I used Spearman correlations and PCA to examine relationships between substances.
+        <p class="why">Two sites can discharge the same total amount of PFAS but different substances. These analyses take discharge composition into account.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h3>Presenting the findings</h3>
+        I prepared Excel pivot tables, Python charts, QGIS maps and Power BI visualisations to present the findings to people without a statistical background.
+      </div>
+    </li>
+  </ol>
+</details>
+
+<h2>Skills used</h2>
+<div class="tags">
+  <span>Web scraping</span>
+  <span>Data cleaning and harmonisation</span>
+  <span>VBA</span>
+  <span>Multivariate statistics</span>
+  <span>PERMANOVA</span>
+  <span>PCA</span>
+  <span>Spearman correlations</span>
+  <span>Mapping with QGIS</span>
+  <span>Power BI</span>
+  <span>Python</span>
+  <span>Environment and health</span>
+  <span>Presenting findings</span>
+</div>
+
+<footer>
+  <a href="../index.html#projets">← Back to projects</a>
+  · Data from public DREAL and prefecture datasets. Internship at SOCOTEC Environnement.
+</footer>
+
+</main>
+
+</body>
+</html>

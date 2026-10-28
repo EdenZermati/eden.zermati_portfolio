@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EMG-controlled mini prosthesis — Eden Zermati</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../projet.css">
+<style>pre{background:var(--card);border-left:4px solid var(--wine);padding:12px 16px;overflow-x:auto;font-size:14px;line-height:1.55;margin:10px 0}code{font-family:ui-monospace,Consolas,monospace;font-size:.92em}</style>
+<style>
+.pr-stages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:24px 0}.pr-stages article{padding:18px 16px;background:var(--card);border-top:3px solid var(--wine);border-radius:0 0 9px 9px}.pr-stages article>span{display:block;font-size:10px;letter-spacing:.07em;color:var(--wine);font-weight:600;margin-bottom:12px}.pr-stages h3{font-size:20px;margin-bottom:12px}.pr-stages p{font-size:13px;line-height:1.75;margin:0}.pr-small{font-size:12px;color:var(--mute);line-height:1.7;max-width:none}.pr-figure{max-width:480px;margin:24px auto}.pr-figure .fr{padding:10px;border-radius:10px;overflow:hidden}.pr-zoom{display:block;width:100%;cursor:zoom-in}.pr-figure img{display:block;width:100%;height:auto}.pr-figure figcaption{font-size:12px;line-height:1.6;margin-top:9px}.pr-figure:has(img[src*="prothese-01"]){max-width:560px}.pr-explorer{max-width:680px;margin:32px auto}.pr-explorer>h3{font-size:24px;margin-bottom:12px}.pr-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:18px 0}.pr-tabs[hidden],.pr-gesture[hidden]{display:none}.pr-tabs button{font:inherit;font-size:14px;padding:12px;background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:9px;cursor:pointer}.pr-tabs button[aria-pressed="true"]{background:var(--wine);color:var(--bg);border-color:var(--wine)}.pr-tabs button:focus-visible,.pr-zoom:focus-visible,.pr-details summary:focus-visible,#pr-close:focus-visible{outline:3px solid var(--wine);outline-offset:4px}.pr-gesture h4{font-size:16px;color:var(--wine);margin:16px 0 6px}.pr-gesture>p{font-size:13px;color:var(--mute);margin-bottom:16px}.pr-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}.pr-pair .pr-figure{margin:0;width:100%}.pr-pair .fr{height:260px;align-items:center}.pr-pair img{width:100%;max-height:238px;object-fit:contain}.pr-details{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:15px 0;margin:22px 0}.pr-details summary{font-size:14px;color:var(--wine);font-weight:600;cursor:pointer}.pr-details[open] summary{margin-bottom:15px}.two:has(.pr-figure){max-width:680px;margin:24px auto;gap:18px}.two>.pr-figure{margin:0;width:100%}.two>.pr-figure .fr{height:260px;align-items:center}.two>.pr-figure img{max-height:238px;object-fit:contain}.pr-validation{display:grid;grid-template-columns:180px 1fr;gap:20px;align-items:center;border-left:3px solid var(--wine);background:var(--card);padding:20px;margin:22px 0}.pr-validation b{display:block;font-size:32px;color:var(--wine);line-height:1.2}.pr-validation span{display:block;font-size:12px;color:var(--mute);margin-top:8px}.pr-validation p{font-size:13px;line-height:1.75;margin:0}.tw{border:1px solid var(--line);border-radius:10px;background:var(--card);margin:20px 0}.tw table{margin:0}.tw th{color:var(--wine);background:var(--bg)}.tw td,.tw th{padding:12px 14px;vertical-align:top}.tw tr:last-child>*{border-bottom:0}#pr-dialog{width:94vw;max-width:1200px;max-height:94dvh;overflow:auto;padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)}#pr-dialog::backdrop{background:#17100dd9}.pr-dialog-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px;font-size:14px}#pr-close{font:inherit;padding:8px 12px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:7px;cursor:pointer}.pr-zoom-scroll{overflow:auto;max-height:76dvh;background:#fff}#pr-zoom-image{display:block;max-width:100%;height:auto;margin:auto}@media(max-width:680px){.pr-stages{grid-template-columns:1fr}.pr-pair{grid-template-columns:1fr}.pr-pair .pr-figure{max-width:420px;margin:0 auto}.pr-pair .fr{height:auto}.pr-pair img{max-height:300px}.pr-validation{grid-template-columns:1fr;gap:14px}.two:has(.pr-figure){grid-template-columns:1fr}.two>.pr-figure{max-width:440px;margin:0 auto}.two>.pr-figure .fr{height:auto}.two>.pr-figure img{max-height:300px}}
+</style>
+<style>
+.pr-demo{max-width:680px;margin:24px auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+.pr-demo figure{margin:0;min-width:0}
+.pr-demo .pr-media-wrap{display:flex;align-items:center;justify-content:center;min-height:360px}
+.pr-demo .pr-zoom{display:flex;width:100%;align-items:center;justify-content:center}
+.pr-demo img,.pr-demo video{display:block;width:auto;max-width:100%;height:360px;object-fit:contain;border-radius:9px}
+.pr-demo video{background:var(--card)}
+.pr-demo figcaption{max-width:290px;margin:10px auto 0;font-size:12px;color:var(--mute);line-height:1.65}
+@media(max-width:580px){.pr-demo{grid-template-columns:1fr;gap:26px}.pr-demo .pr-media-wrap{min-height:320px}.pr-demo img,.pr-demo video{height:320px}}
+</style>
+<style>
+.kpi{grid-template-columns:repeat(3,minmax(0,1fr))}
+.pr-prose,.pr-details .steps p{text-align:justify;text-justify:inter-word;hyphens:auto}
+.pr-details .steps p{max-width:none;margin:8px 0 0}
+.pr-details .steps li>div,.pr-stages article{min-width:0}
+.pr-details>p{margin-top:16px}
+.pr-note{margin-top:8px}
+.pr-note p{max-width:none;margin:8px 0 0}
+.pr-details .pr-explorer{margin:20px auto 8px}
+.pr-details .pr-explorer>h3{font-size:21px}
+.pr-tools th[scope="row"]{min-width:120px}
+.pr-tools td div+div{margin-top:6px}
+.pr-validation p{max-width:none}
+@media(max-width:680px){
+  .pr-prose,.pr-details .steps p{text-align:left;hyphens:none}
+}
+@media(max-width:540px){.kpi{grid-template-columns:1fr}}
+</style>
+<link rel="stylesheet" href="../../langues.css">
+<link rel="alternate" hreflang="fr" href="../../projets/prothese.html">
+<link rel="alternate" hreflang="en" href="prothese.html">
+</head>
+<body>
+<main>
+  <div class="portfolio-language-row"><a class="back" href="../index.html#projets">← Back to projects</a><div class="portfolio-language-switch" role="group" aria-label="Portfolio language"><a href="../../projets/prothese.html" lang="fr" hreflang="fr" aria-label="Afficher cette page en français">FR</a><a href="prothese.html" lang="en" hreflang="en" aria-label="Display this page in English" aria-current="page">EN</a></div></div>
+  <h1>EMG-controlled mini prosthesis</h1>
+  <p class="hook">I helped build a mini prosthesis that recognises three gestures from forearm muscle contractions.</p>
+
+  <dl class="meta">
+    <div><dt>Type</dt><dd>Academic project · Team of three</dd></div>
+    <div><dt>Year</dt><dd>2024</dd></div>
+    <div><dt>Organisation</dt><dd>ESIEE Paris · Biotechnology and digital health</dd></div>
+    <div><dt>Tools</dt><dd>MATLAB · Arduino · MyoWare</dd></div>
+  </dl>
+
+  <div class="kpi">
+    <div><b>3</b><span>gestures studied</span></div>
+    <div><b>12 / 12</b><span>images correctly classified in the validation set</span></div>
+    <div><b>≈ 2 min</b><span>of network training</span></div>
+  </div>
+
+  <h2>Project question</h2>
+  <p class="q">How can three gestures be recognised from muscle signals and used to control a robotic finger?</p>
+
+  <h2>Context</h2>
+  <p class="pr-prose">A myoelectric prosthesis uses the electrical activity of muscles to control movement. Electrodes placed on the skin record this activity. The resulting signal is called an electromyogram, or EMG.</p>
+  <p class="pr-prose">In this project I worked on a prototype designed to recognise rock, paper and scissors gestures. The task was to connect signal acquisition, classification and control of a robotic finger.</p>
+
+  <h2>My contribution to the team</h2>
+  <p class="pr-prose">I worked on this project with two other students. We started with hardware and some programs provided by our teachers. Our task was to adapt these elements and make them work together as a complete system.</p>
+
+  <div class="pr-stages">
+    <article>
+      <span>01 · ACQUIRE</span>
+      <h3>Recording contractions</h3>
+      <p>We configured communication between Arduino and MATLAB, then recorded signals for the three gestures.</p>
+    </article>
+    <article>
+      <span>02 · LEARN</span>
+      <h3>Recognising gestures</h3>
+      <p>We converted the signals into images and adapted a pretrained network to distinguish the three movements.</p>
+    </article>
+    <article>
+      <span>03 · INTEGRATE</span>
+      <h3>Controlling the finger</h3>
+      <p>We connected the stages in a main program and tested how the prototype responded to muscle contractions.</p>
+    </article>
+  </div>
+
+  <h2>Data and tools</h2>
+  <p class="pr-prose">I worked with forearm EMG recordings. The signals were converted into time-frequency images called scalograms for use by the neural network.</p>
+
+  <details class="pr-details">
+    <summary>See the data and tools used</summary>
+    <div class="tw pr-tools">
+      <table>
+        <tbody>
+          <tr><th scope="row">Signals</th><td>Forearm EMG measured with MyoWare on the inner and outer sides.</td></tr>
+          <tr><th scope="row">Gestures</th><td><div>Paper with forward bending.</div><div>Scissors with backward bending.</div><div>Rock with a closed fist.</div></td></tr>
+          <tr><th scope="row">Initial dataset</th><td>Ten recordings per gesture. The dataset was later expanded with more recordings.</td></tr>
+          <tr><th scope="row">Dataset used in the practical classes</th><td>NinaPro with electrodes 9 and 10 at a sampling frequency of 100 Hz.</td></tr>
+          <tr><th scope="row">Data format</th><td>Scalograms stored in three folders corresponding to the three gestures.</td></tr>
+          <tr><th scope="row">MATLAB</th><td>Signal processing and scalogram generation. Adapting the pretrained network and classifying gestures.</td></tr>
+          <tr><th scope="row">Arduino</th><td>Signal acquisition and serial communication with MATLAB. Servomotor control using a second board.</td></tr>
+          <tr><th scope="row">MyoWare</th><td>Measuring muscle activity with built-in amplification and filtering.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <h2>Approach</h2>
+  <p class="pr-prose">I worked on the steps between the muscle signal and finger control. The system combines EMG processing, image classification and motor control.</p>
+
+  <details class="pr-details">
+    <summary>See the five stages of the system</summary>
+    <figure class="pr-figure"><div class="fr"><a class="pr-zoom" href="../../images/prothese-01-schema-systeme.png" target="_blank" rel="noopener"><img src="../../images/prothese-01-schema-systeme.png" alt="EMG acquisition and mini-prosthesis control pipeline" width="900" loading="lazy"></a></div><figcaption>From EMG measurement to finger control with Arduino and MATLAB.</figcaption></figure>
+    <ol class="steps">
+      <li>
+        <div>
+          <h3>Acquiring EMG signals</h3>
+          <p>We connected the MyoWare module to an Arduino. Measurements on the inner and outer sides of the forearm allowed us to compare muscle activity for each gesture.</p>
+          <p class="why">In our recordings, paper mainly activates the inner side. Scissors mainly activates the outer side. A closed fist activates both.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Processing the signal</h3>
+          <p>The processing program applied a 1–500 Hz band-pass filter and rectified the signal. The next step was to extract its envelope.</p>
+          <p class="why">The envelope helps track muscle activity intensity over time and identify contractions more clearly.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Creating scalograms</h3>
+          <p>I used scalograms generated with a wavelet transform in MATLAB. Each image shows how the signal’s frequencies change over time. It is then placed in the folder for the corresponding gesture.</p>
+          <p class="why">This representation turns gesture recognition into an image classification problem.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Adapting a pretrained network</h3>
+          <p>I used transfer learning to adapt a pretrained network to the three gestures. This approach reuses features the network has already learnt from images. It provides a starting point for training on our scalogram dataset.</p>
+          <p class="why">The aim was to use an existing trained network with the project’s limited number of scalograms.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Connecting recognition to movement</h3>
+          <p>The main program acquired the signal, created a scalogram and classified it. It then sent a command to a second Arduino controlling the finger’s servomotor.</p>
+          <p class="why">This allowed us to test the complete prototype from muscle contraction to movement.</p>
+        </div>
+      </li>
+    </ol>
+    <figure class="pr-figure"><div class="fr"><a class="pr-zoom" href="../../images/prothese-04-filtrage.png" target="_blank" rel="noopener"><img src="../../images/prothese-04-filtrage.png" alt="EMG filtering and rectification followed by envelope extraction" width="900" loading="lazy"></a></div><figcaption>EMG processing steps before scalogram generation.</figcaption></figure>
+  </details>
+
+  <details class="pr-details">
+    <summary>Compare signals and scalograms for the three gestures</summary>
+    <section id="pr-explorer" class="pr-explorer" aria-labelledby="pr-explorer-title">
+      <h3 id="pr-explorer-title">From gesture to scalogram</h3>
+      <p class="pr-small">Choose a gesture to compare its recorded signal and scalogram. These examples come from the project. They are not live recordings or predictions.</p>
+      <div class="pr-tabs" id="pr-tabs" role="group" aria-label="Choose a gesture" hidden>
+        <button type="button" data-gesture="0" aria-pressed="true">Rock</button>
+        <button type="button" data-gesture="1" aria-pressed="false">Paper</button>
+        <button type="button" data-gesture="2" aria-pressed="false">Scissors</button>
+      </div>
+      <section class="pr-gesture" aria-labelledby="pr-gesture-0">
+      <h4 id="pr-gesture-0">Rock</h4>
+      <p>Closed fist. Muscles on the inner and outer sides are activated.</p>
+      <div class="pr-pair">
+        <figure class="pr-figure"><div class="fr"><a class="pr-zoom" href="../../images/prothese-07-emg-pierre.png" target="_blank" rel="noopener"><img src="../../images/prothese-07-emg-pierre.png" alt="EMG signal for rock" width="400" loading="lazy"></a></div><figcaption>Both signals are active for rock.</figcaption></figure>
+        <figure class="pr-figure"><div class="fr"><a class="pr-zoom" href="../../images/prothese-10-scalo-pierre.png" target="_blank" rel="noopener"><img src="../../images/prothese-10-scalo-pierre.png" alt="Scalogram for rock" width="400" loading="lazy"></a></div><figcaption>Scalogram for rock.</figcaption></figure>
+      </div>
+    </section>
+<section class="pr-gesture" aria-labelledby="pr-gesture-1">
+      <h4 id="pr-gesture-1">Paper</h4>
+      <p>Forward bending. The signal on the inner side dominates.</p>
+      <div class="pr-pair">
+        <figure class="pr-figure"><div class="fr"><a class="pr-zoom" href="../../images/prothese-05-emg-feuille.png" target="_blank" rel="noopener"><img src="../../images/prothese-05-emg-feuille.png" alt="EMG signal for paper" width="400" loading="lazy"></a></div><figcaption>The inner-side signal dominates for paper.</figcaption></figure>
+        <figure class="pr-figure"><div class="fr"><a class="pr-zoom" href="../../images/prothese-08-scalo-feuille.png" target="_blank" rel="noopener"><img src="../../images/prothese-08-scalo-feuille.png" alt="Scalogram for paper" width="400" loading="lazy"></a></div><figcaption>Scalogram for paper.</figcaption></figure>
+      </div>
+    </section>
+<section class="pr-gesture" aria-labelledby="pr-gesture-2">
+      <h4 id="pr-gesture-2">Scissors</h4>
+      <p>Backward bending. The signal on the outer side dominates.</p>
+      <div class="pr-pair">
+        <figure class="pr-figure"><div class="fr"><a class="pr-zoom" href="../../images/prothese-06-emg-ciseaux.png" target="_blank" rel="noopener"><img src="../../images/prothese-06-emg-ciseaux.png" alt="EMG signal for scissors" width="400" loading="lazy"></a></div><figcaption>The outer-side signal dominates for scissors.</figcaption></figure>
+        <figure class="pr-figure"><div class="fr"><a class="pr-zoom" href="../../images/prothese-09-scalo-ciseaux.png" target="_blank" rel="noopener"><img src="../../images/prothese-09-scalo-ciseaux.png" alt="Scalogram for scissors" width="400" loading="lazy"></a></div><figcaption>Scalogram for scissors.</figcaption></figure>
+      </div>
+    </section>
+    </section>
+  </details>
+
+  <h2>Fabrication and assembly</h2>
+  <p class="pr-prose">The finger used 3D-printed parts based on the InMoov model. We filed the parts to fit and connected them to the servomotor with fishing line. Controlling the motor bent or extended the finger.</p>
+  <details class="pr-details">
+    <summary>See the prototype and assembly</summary>
+    <div class="two">
+      <figure class="pr-figure"><div class="fr"><a class="pr-zoom" href="../../images/prothese-03-mini-prothese.png" target="_blank" rel="noopener"><img src="../../images/prothese-03-mini-prothese.png" alt="Assembled mini prosthesis" width="480" loading="lazy"></a></div><figcaption>The robotic finger with the servomotor and control board.</figcaption></figure>
+      <figure class="pr-figure"><div class="fr"><a class="pr-zoom" href="../../images/prothese-02-montage.png" target="_blank" rel="noopener"><img src="../../images/prothese-02-montage.png" alt="MyoWare and Arduino setup for controlling the servomotor" width="480" loading="lazy"></a></div><figcaption>Annotated test setup.</figcaption></figure>
+    </div>
+  </details>
+
+  <h2 id="pr-demo">Demo</h2>
+  <div class="pr-demo" aria-labelledby="pr-demo">
+    <figure>
+      <div class="pr-media-wrap"><a class="pr-zoom" href="../../images/prothese-demo.png" target="_blank" rel="noopener"><img src="../../images/prothese-demo.png" alt="Two demo prostheses on their stands in the practical classroom" width="1086" height="1448" loading="lazy" decoding="async"></a></div>
+      <figcaption>Demonstration setup. People have been removed from the photo.</figcaption>
+    </figure>
+    <figure>
+      <div class="pr-media-wrap"><video controls playsinline preload="metadata" width="478" height="850" aria-label="Silent demo video of the EMG device"><source src="../../videos/prothese-anonymisee.mp4" type="video/mp4">Your browser cannot play this video. <a href="../../videos/prothese-anonymisee.mp4">Download the demo video</a>.</source></video></div>
+      <figcaption>Faces have been blurred and audio removed from the video.</figcaption>
+    </figure>
+  </div>
+
+  <h2>Results</h2>
+  <div class="pr-validation">
+    <div><b>12 / 12</b><span>validation images correctly classified</span></div>
+    <p class="pr-prose">The network correctly classified all four images for each gesture. This small validation set cannot establish reliability on new people or during continuous use.</p>
+  </div>
+  <p class="pr-prose">During the final demonstration the prototype worked with some classification errors. Paper was the least reliable gesture. There was also a delay of a few seconds between contraction and finger movement.</p>
+
+  <details class="pr-details">
+    <summary>See the validation results and training settings</summary>
+    <p class="pr-prose">Training took about two minutes with 20 epochs and 60 iterations. The network achieved 100% accuracy on the 12 validation images. This score applies only to that small image set.</p>
+    <div class="two">
+      <figure class="pr-figure"><div class="fr"><a class="pr-zoom" href="../../images/prothese-11-entrainement.png" target="_blank" rel="noopener"><img src="../../images/prothese-11-entrainement.png" alt="Network training log" width="480" loading="lazy"></a></div><figcaption>Network training progress.</figcaption></figure>
+      <figure class="pr-figure"><div class="fr"><a class="pr-zoom" href="../../images/prothese-12-matrice-confusion.png" target="_blank" rel="noopener"><img src="../../images/prothese-12-matrice-confusion.png" alt="Confusion matrix for the 12 validation images" width="480" loading="lazy"></a></div><figcaption>Four correctly classified validation images per gesture.</figcaption></figure>
+    </div>
+  </details>
+
+  <h2>What I learnt</h2>
+  <p class="pr-prose">With ten recordings per gesture, classification was still insufficient. Expanding the dataset improved the results. My main takeaway was that a good score on a few images does not show whether the model will work on other people.</p>
+  <p class="pr-prose">The hardware also needed a lot of adjustments. We changed the electrodes three times and the board twice. We also fixed several communication problems between MATLAB and Arduino.</p>
+
+  <details class="pr-details">
+    <summary>See the limitations and possible improvements</summary>
+    <p class="pr-prose">The image dataset remains small and all recordings come from the team. To evaluate the model more thoroughly I would collect more signals from several people. I would then separate training and validation by person and session.</p>
+    <p class="pr-prose">The prototype controls only one finger. Further work could reduce latency, improve recognition of paper and extend control to several fingers with continuous recognition.</p>
+    <p class="pr-prose">It would also be necessary to check whether the better score with more images reflects overfitting. The model needs to recognise new recordings.</p>
+  </details>
+
+  <h2>Skills used</h2>
+  <div class="tags">
+    <span>Signal acquisition</span>
+    <span>Signal processing</span>
+    <span>Electromyography</span>
+    <span>Wavelets</span>
+    <span>Transfer learning</span>
+    <span>MATLAB</span>
+    <span>Arduino</span>
+    <span>Hardware and software integration</span>
+    <span>Teamwork</span>
+  </div>
+
+  <footer><a href="../index.html#projets">← Back to projects</a> · Academic project completed by a team of three at ESIEE Paris.</footer>
+</main>
+<dialog id="pr-dialog" aria-label="Enlarged project figure"><div class="pr-dialog-bar"><span id="pr-zoom-title">Figure</span><button type="button" id="pr-close">Close ×</button></div><div class="pr-zoom-scroll"><img id="pr-zoom-image" alt=""></div></dialog>
+<script>
+(() => {
+const buttons=[...document.querySelectorAll('[data-gesture]')];const panels=[...document.querySelectorAll('.pr-gesture')];
+function select(index){panels.forEach((panel,i)=>panel.hidden=i!==index);buttons.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));}
+buttons.forEach((button,index)=>button.addEventListener('click',()=>select(index)));select(0);document.getElementById('pr-tabs').hidden=false;
+const dialog=document.getElementById('pr-dialog');
+document.querySelectorAll('.pr-zoom').forEach(link=>link.addEventListener('click',event=>{if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey||typeof dialog.showModal!=='function')return;event.preventDefault();const image=link.querySelector('img');document.getElementById('pr-zoom-image').src=image.src;document.getElementById('pr-zoom-image').alt=image.alt;document.getElementById('pr-zoom-title').textContent=image.alt;dialog.showModal();dialog.querySelector('.pr-zoom-scroll').scrollTo(0,0);}));
+document.getElementById('pr-close').addEventListener('click',()=>dialog.close());
+dialog.addEventListener('click',event=>{if(event.target!==dialog)return;const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();});
+})();
+</script>
+</body>
+</html>

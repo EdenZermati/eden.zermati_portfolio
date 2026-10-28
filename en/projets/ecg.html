@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ECG arrhythmia detection — Eden Zermati</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../projet.css">
+<style>
+.ec-compare{max-width:680px;margin:32px auto}.ec-compare h2{margin:0 0 12px}.ec-subtitle{font-size:12px;color:var(--mute)}.ec-choices{display:flex;gap:8px;margin:18px 0}.ec-choices button{flex:1;padding:11px 14px;background:var(--card);border:1px solid var(--line);border-radius:9px;font:inherit;font-size:14px;color:var(--ink);cursor:pointer}.ec-choices button[aria-pressed="true"]{background:var(--wine);color:var(--bg);border-color:var(--wine)}.ec-choices button:focus-visible,.ec-image-link:focus-visible,#ec-close:focus-visible{outline:3px solid var(--wine);outline-offset:4px}.ec-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:center;gap:22px}.ec-layout figure{margin:0}.ec-image-link{display:block;cursor:zoom-in;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}.ec-image-link img{display:block;max-width:100%;height:auto}.ec-layout figcaption{font-size:11px}.ec-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.ec-metrics div{border-bottom:1px solid var(--line);padding:6px 0 10px}.ec-metrics dt{font-size:12px;color:var(--mute)}.ec-metrics dd{margin:3px 0 0;font-weight:600;font-size:23px;color:var(--wine);font-variant-numeric:tabular-nums}.ec-summary p{font-size:13px;line-height:1.65;margin:0;color:var(--mute)}.ec-link-detail{margin:18px 0 0;font-size:13px}a.ec-zoom{display:block;cursor:zoom-in}#ec-dialog{width:94vw;max-width:1100px;max-height:94dvh;overflow:auto;padding:18px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:12px}#ec-dialog::backdrop{background:#17100dd9}.ec-dialog-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px;font-size:14px}#ec-close{font:inherit;padding:8px 12px;border:1px solid var(--line);border-radius:7px;background:var(--card);color:var(--ink);cursor:pointer}#ec-zoom-image{display:block;max-width:100%;height:auto;margin:auto;background:white}@media(max-width:540px){.ec-layout{grid-template-columns:1fr;gap:18px}.ec-layout figure{max-width:320px;margin:0 auto}.ec-metrics{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.ec-metrics dd{font-size:18px}.ec-choices button{font-size:13px;padding:10px 8px}}@media(max-width:350px){.ec-metrics{grid-template-columns:1fr 1fr}}
+</style>
+<style>.ec-result-subheading{margin:24px 0 12px}.ec-compare #ec-title{margin:0 0 12px;font-size:21px}</style>
+
+<style>
+.ec-compact-figure{max-width:480px;margin:24px auto}.ec-compact-figure .fr{padding:10px;border-radius:10px}.ec-compact-figure .ec-zoom{width:100%}.ec-compact-figure img{width:100%;height:auto}.ec-compact-figure figcaption{font-size:12px;line-height:1.6;margin-top:9px}.ec-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card);margin:20px 0 10px}.ec-results-table{margin:0;width:100%;min-width:580px;border-collapse:collapse;font-size:14px}.ec-results-table caption{text-align:left;font-size:12px;color:var(--mute);padding:12px 16px;border-bottom:1px solid var(--line)}.ec-results-table thead th{background:var(--wine);color:var(--bg);font-size:12px;font-weight:600;padding:14px 16px;border:0}.ec-results-table tbody th{font-family:Inter,system-ui,sans-serif;font-style:normal;font-size:13px;line-height:1.5;color:var(--ink);font-weight:600;max-width:190px;padding:19px 16px}.ec-results-table tbody td{font-size:15px;padding:19px 16px;color:var(--ink);font-variant-numeric:tabular-nums;vertical-align:middle}.ec-results-table tbody tr:nth-child(even){background:var(--bg)}.ec-results-table tbody tr:last-child>*{border-bottom:0}.ec-cell-score{display:flex;flex-direction:column;align-items:flex-end;gap:8px}.ec-bar{display:block;width:72px;height:4px;overflow:hidden;background:var(--line);border-radius:8px}.ec-bar i{display:block;height:100%;background:var(--wine);border-radius:8px}.ec-best-value{display:inline-block;color:var(--wine);font-weight:600;border:1px solid var(--wine);border-radius:5px;padding:1px 5px;white-space:nowrap}.ec-table-legend{font-size:12px;color:var(--mute);line-height:1.6;max-width:none;margin:0 0 24px}@media(max-width:540px){.ec-compact-figure{max-width:100%}.ec-table-wrap{border-radius:8px}.ec-results-table tbody td,.ec-results-table tbody th{padding:15px 12px}}
+</style>
+<style id="ec-details-style">
+.ec-details {
+  margin: 12px 0;
+  padding: 15px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.ec-details > summary {
+  cursor: pointer;
+  color: var(--wine);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.ec-details > summary::marker {
+  color: var(--wine);
+}
+.ec-details > summary:focus-visible {
+  outline: 3px solid var(--wine);
+  outline-offset: 5px;
+}
+.ec-details[open] > summary {
+  margin-bottom: 18px;
+}
+.ec-details-content > :first-child {
+  margin-top: 0;
+}
+.ec-details-content > :last-child {
+  margin-bottom: 0;
+}
+</style>
+<style id="ec-text-alignment">
+/* Alignement des paragraphes de la page ECG. */
+main > p:not(.hook):not(.q):not(.ec-table-legend),
+.ec-details .steps li > div,
+.ec-details .flow > div,
+main > .find,
+main > .two > div > p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+.ec-details .steps h3,
+.ec-details .flow h3,
+.find h3,
+.find figcaption {
+  text-align: left;
+  hyphens: manual;
+}
+
+@media (max-width: 680px) {
+  main > p:not(.hook):not(.q):not(.ec-table-legend),
+  .ec-details .steps li > div,
+  .ec-details .flow > div,
+  main > .find,
+  main > .two > div > p {
+    text-align: left;
+    hyphens: manual;
+  }
+}
+</style>
+<link rel="stylesheet" href="../../langues.css">
+<link rel="alternate" hreflang="fr" href="../../projets/ecg.html">
+<link rel="alternate" hreflang="en" href="ecg.html">
+</head>
+<body>
+<main>
+<div class="portfolio-language-row"><a class="back" href="../index.html#projets">← Back to projects</a><div class="portfolio-language-switch" role="group" aria-label="Portfolio language"><a href="../../projets/ecg.html" lang="fr" hreflang="fr" aria-label="Afficher cette page en français">FR</a><a href="ecg.html" lang="en" hreflang="en" aria-label="Display this page in English" aria-current="page">EN</a></div></div>
+
+<h1>ECG arrhythmia detection</h1>
+<p class="hook">I prepared ECG signals and trained three AI models to detect abnormal heartbeats in new patients. I then compared their performance.</p>
+
+<svg class="ecg" viewbox="0 0 712 90" preserveaspectratio="none" role="img" aria-label="ECG trace"><path pathlength="1" vector-effect="non-scaling-stroke" d="M0,44 h40 q6,-10 14,0 h26 l5,6 l7,-38 l7,46 l5,-14 h20 q10,-14 24,0 h30 h40 q6,-10 14,0 h26 l5,6 l7,-38 l7,46 l5,-14 h20 q10,-14 24,0 h30 h40 q6,-10 14,0 h26 l5,6 l7,-38 l7,46 l5,-14 h20 q10,-14 24,0 h30"></path></svg>
+
+<dl class="meta">
+  <div><dt>Type</dt><dd>Personal project</dd></div>
+  <div><dt>Period</dt><dd>February – April 2026</dd></div>
+  <div><dt>Data</dt><dd>MIT-BIH Arrhythmia Database</dd></div>
+  <div><dt>Tools</dt><dd>Python · scikit-learn · PyTorch</dd></div>
+</dl>
+
+<div class="kpi">
+  <div><b>101,015</b><span>heartbeats analysed</span></div>
+  <div><b>47</b><span>patients, including 15 held out for testing</span></div>
+  <div><b>3</b><span>models and one variant</span></div>
+  <div><b>0.87</b><span>ROC-AUC on the test set</span></div>
+</div>
+
+<h2>Project question</h2>
+<p class="q">How can abnormal ECG beats be detected in patients whose data was not used to train the model?</p>
+
+<h2>Context</h2>
+<p>An electrocardiogram records the heart’s electrical activity. An arrhythmia is an irregular heart rhythm. My aim was to identify abnormal beats in these signals. This is an educational project and is not a medical device.</p>
+
+<h2>My contribution</h2>
+<p>I prepared the data and trained and compared the models. I designed a patient-level evaluation and examined the errors to understand the limits of each approach.</p>
+
+<h2>Data</h2>
+<p>I used the MIT-BIH annotations to group the selected heartbeats into normal and abnormal classes.</p>
+<div class="tw">
+  <table>
+    <tbody>
+      <tr><th scope="row">Source</th><td>MIT-BIH Arrhythmia Database on PhysioNet. It contains 48 recordings from 47 patients. The signals are sampled at 360 Hz.</td></tr>
+      <tr><th scope="row">Selected heartbeats</th><td>101,015 beats in total. These include 75,022 normal beats and 25,993 abnormal beats. The abnormal class represents 25.7% of the data.</td></tr>
+      <tr><th scope="row">Classes</th><td>The normal class corresponds to N. The abnormal class includes A · V · L · R · F · E · J. Other annotations were excluded.</td></tr>
+      <tr><th scope="row">Segment</th><td>Each beat contains 252 samples. The segment starts 0.25 s before the annotated peak and ends 0.45 s after it.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<figure class="ec-compact-figure">
+  <div class="fr">
+    <a class="ec-zoom" href="../../images/ecg-donnees-battements.png" target="_blank" rel="noopener">
+      <img src="../../images/ecg-donnees-battements.png" alt="Normal and abnormal heartbeats" width="1200">
+    </a>
+  </div>
+  <figcaption>Examples of normal and abnormal heartbeats in recording 100.</figcaption>
+</figure>
+
+<h2>Methods and tools</h2>
+<p>I compared models using calculated features with a 1D CNN using normalised signals. I also tested the contribution of RR intervals.</p>
+
+<details class="ec-details" id="ec-method-details">
+  <summary>Read the detailed method</summary>
+  <div class="ec-details-content">
+<ol class="steps">
+  <li>
+    <div>
+      <h3>Segmenting the heartbeats</h3>
+      I segmented the signal around the peaks provided in the annotations. Each window contains 252 samples and covers 0.25 s before the peak and 0.45 s after it. I used these segments to study beat morphology, which means the shape of each beat in the signal. Automatic peak detection was outside the scope of this project.
+    </div>
+  </li>
+  <li>
+    <div>
+      <h3>Z-score normalisation</h3>
+      I applied Z-score normalisation to each segment before passing it to the CNN. This reduces differences in scale between beats so the model can compare their shape. I kept the raw signal to calculate amplitude features for the classical models.
+    </div>
+  </li>
+  <li>
+    <div>
+      <h3>Classical models and a 1D CNN</h3>
+      I trained logistic regression and a Random Forest using features calculated for each beat. I compared their results with a 1D CNN. This convolutional neural network learns patterns directly from the normalised segments.
+      <p class="why">I used logistic regression as a baseline. The Random Forest also allowed me to examine feature importance. I tested a version without RR intervals to assess the contribution of rhythm information.</p>
+    </div>
+  </li>
+  <li>
+    <div>
+      <h3>Class weighting</h3>
+      Abnormal beats represent 25.7% of the data. I weighted the classes during training to account for this imbalance. Errors on the abnormal class therefore carried more weight during learning.
+    </div>
+  </li>
+  <li>
+    <div>
+      <h3>Tuning the decision threshold</h3>
+      The threshold determines the score above which a beat is considered abnormal. I used the validation set to choose the threshold with the highest F2 score. I then compared it with the usual threshold of 0.5 to examine its effect on detected abnormalities and false alarms.
+      <p class="why">The F2 score gives more weight to recall than precision. I tuned the threshold on the validation set and kept the test set for the final evaluation.</p>
+    </div>
+  </li>
+</ol>
+
+<div class="flow">
+  <div>
+    <h3>Morphological features and RR intervals</h3>
+    I calculated 17 features per beat. The 13 morphological features describe properties such as signal energy and amplitude. They also cover slopes, area and beat width. The four rhythm features use RR intervals, which measure the time between successive R peaks. I trained logistic regression and a Random Forest with 300 decision trees using these features. I also tested the Random Forest with morphological features only.
+  </div>
+  <div>
+    <h3>1D CNN architecture</h3>
+    I built a 1D CNN in PyTorch to analyse the normalised segments. It uses three convolutional blocks with 16, 32 and 64 filters. The architecture includes BatchNorm and a dropout rate of 0.3. I trained the network for 10 epochs. It receives no rhythm features.
+  </div>
+</div>
+  </div>
+</details>
+
+<details class="ec-details" id="ec-tools-details">
+  <summary>See the tools and how I used them</summary>
+  <div class="ec-details-content">
+<div class="tw">
+  <table>
+    <thead><tr><th>Tool</th><th>Use</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>Python and wfdb</td><td>Reading signals and annotations</td><td>Access to PhysioNet data through a dedicated library</td></tr>
+      <tr><td>NumPy and pandas</td><td>Preparing segments and features</td><td>Calculations across more than 100,000 heartbeats</td></tr>
+      <tr><td>scikit-learn</td><td>Classical models and evaluation</td><td>Patient-group splits and evaluation metrics</td></tr>
+      <tr><td>PyTorch</td><td>Developing the 1D CNN</td><td>Choosing the architecture and monitoring training</td></tr>
+      <tr><td>Jupyter and Matplotlib</td><td>Notebooks and plots</td><td>Documenting the project steps and presenting results</td></tr>
+    </tbody>
+  </table>
+</div>
+  </div>
+</details>
+
+<h2>Evaluation protocol</h2>
+<p>I split the data by patient to test the models on people absent from the training set. No patient appears in more than one of the three sets.</p>
+<div class="split" role="img" aria-label="25 patients for training, seven for validation and 15 for testing">
+  <span class="s1">Training · 25 patients</span>
+  <span class="s2">Validation · 7</span>
+  <span class="s3">Test · 15</span>
+</div>
+<p style="color:var(--mute);font-size:14px">The training set contains 55,821 beats. The validation set contains 13,210 and the test set contains 31,984.</p>
+
+<h2 id="ec-results">Results</h2>
+<p>I evaluated the models on the 15 test patients. The scores refer to the abnormal class. Precision, recall and F1 were calculated using a threshold of 0.5.</p>
+<p>Recall is the proportion of abnormal beats detected by the model. Precision is the proportion of genuine abnormalities among the beats flagged as abnormal. ROC-AUC measures how well the model separates the two classes across all thresholds.</p>
+
+<h3 class="ec-result-subheading">Model comparison</h3>
+<div class="ec-table-wrap"><table class="ec-results-table">
+<caption>Results for the 15 test patients. Abnormal class.</caption>
+<thead><tr><th scope="col">Model</th><th scope="col" class="n">ROC-AUC</th><th scope="col" class="n">Precision</th><th scope="col" class="n">Recall</th><th scope="col" class="n">F1</th></tr></thead><tbody><tr><th scope="row">Logistic regression</th><td class="n"><span>0.812</span></td><td class="n"><div class="ec-cell-score"><span>34.1%</span><span class="ec-bar" aria-hidden="true"><i style="width:34.1%"></i></span></div></td><td class="n"><div class="ec-cell-score"><span>79.2%</span><span class="ec-bar" aria-hidden="true"><i style="width:79.2%"></i></span></div></td><td class="n"><span>0.477</span></td></tr><tr><th scope="row">Random Forest</th><td class="n"><span>0.864</span></td><td class="n"><div class="ec-cell-score"><span>50.9%</span><span class="ec-bar" aria-hidden="true"><i style="width:50.9%"></i></span></div></td><td class="n"><div class="ec-cell-score"><span>89.6%</span><span class="ec-bar" aria-hidden="true"><i style="width:89.6%"></i></span></div></td><td class="n"><span>0.650</span></td></tr><tr><th scope="row">Random Forest without RR</th><td class="n"><span>0.856</span></td><td class="n"><div class="ec-cell-score"><span>51.8%</span><span class="ec-bar" aria-hidden="true"><i style="width:51.8%"></i></span></div></td><td class="n"><div class="ec-cell-score"><strong class="ec-best-value">89.8%</strong><span class="ec-bar" aria-hidden="true"><i style="width:89.8%"></i></span></div></td><td class="n"><strong class="ec-best-value">0.657</strong></td></tr><tr><th scope="row">CNN 1D</th><td class="n"><strong class="ec-best-value">0.867</strong></td><td class="n"><div class="ec-cell-score"><strong class="ec-best-value">55.2%</strong><span class="ec-bar" aria-hidden="true"><i style="width:55.2%"></i></span></div></td><td class="n"><div class="ec-cell-score"><span>71.6%</span><span class="ec-bar" aria-hidden="true"><i style="width:71.6%"></i></span></div></td><td class="n"><span>0.623</span></td></tr></tbody></table></div>
+<p class="ec-table-legend">Outlined values mark the best score in each column. F1 combines precision and recall. No model performs best on every metric.</p>
+
+<section class="ec-compare" aria-labelledby="ec-title">
+  <h3 id="ec-title">Random Forest and CNN confusion matrices</h3>
+  <p class="ec-subtitle">15 test patients · Abnormal class · Threshold 0.5</p>
+  <p class="ec-subtitle">I used these matrices to examine missed abnormalities and normal beats incorrectly flagged as abnormal.</p>
+
+  <div class="ec-choices" role="group" aria-label="Choose a model">
+    <button type="button" data-model="rf" aria-pressed="true">Random Forest</button>
+    <button type="button" data-model="cnn" aria-pressed="false">CNN 1D</button>
+  </div>
+
+  <div class="ec-layout">
+    <figure>
+      <a class="ec-image-link" href="../../images/ecg-matrice-rf.png" target="_blank" rel="noopener">
+        <img id="ec-matrix" src="../../images/ecg-matrice-rf.png" alt="Random Forest confusion matrix" width="480">
+      </a>
+      <figcaption>Click the matrix to enlarge it.</figcaption>
+    </figure>
+
+    <div class="ec-summary" aria-live="polite" aria-atomic="true">
+      <h3 id="ec-model-title">Random Forest</h3>
+      <dl class="ec-metrics">
+        <div><dt>ROC-AUC</dt><dd id="ec-auc">0.864</dd></div>
+        <div><dt>Precision</dt><dd id="ec-precision">50.9%</dd></div>
+        <div><dt>Recall</dt><dd id="ec-recall">89.6%</dd></div>
+        <div><dt>F1</dt><dd id="ec-f1">0.650</dd></div>
+      </dl>
+      <p id="ec-model-description">The Random Forest uses 13 morphological features and four rhythm features. It contains 300 trees.</p>
+    </div>
+  </div>
+</section>
+
+<h3 class="ec-result-subheading">Precision-recall curves</h3>
+<figure class="ec-compact-figure">
+  <div class="fr">
+    <a class="ec-zoom" href="../../images/ecg-precision-rappel.png" target="_blank" rel="noopener">
+      <img src="../../images/ecg-precision-rappel.png" alt="Precision-recall curves" width="640">
+    </a>
+  </div>
+  <figcaption>Precision and recall of the classical models on the test set.</figcaption>
+</figure>
+
+<h2>My conclusions</h2>
+
+<div class="find">
+  <h3>Similar ROC-AUC scores with different trade-offs</h3>
+ I obtained a ROC-AUC of 0.867 with the CNN and 0.864 with the Random Forest. These scores are close. At a threshold of 0.5, Random Forest recall reaches 89.6% compared with 71.6% for the CNN. The Random Forest therefore detects more abnormal beats.
+  <p>The CNN has higher precision at 55.2% compared with 50.9%. It achieves this without the calculated features used by the classical models. I did not find one model that performed best on every metric.</p>
+</div>
+
+<div class="find">
+  <h3>A limited contribution from RR intervals in this experiment</h3>
+  I compared the Random Forest with and without RR intervals to isolate their effect. Adding them increases ROC-AUC by 0.008 but reduces average precision by 0.059. Average precision summarises the precision-recall curve. It differs from precision at the threshold of 0.5 shown in the table. I also examined feature importance. Shape features remain the most important in this model.
+
+  <figure class="ec-compact-figure">
+    <div class="fr">
+      <a class="ec-zoom" href="../../images/ecg-importance-features.png" target="_blank" rel="noopener">
+        <img src="../../images/ecg-importance-features.png" alt="Random Forest feature importance" width="640">
+      </a>
+    </div>
+    <figcaption>Shape features dominate the importance scores calculated by the Random Forest.</figcaption>
+  </figure>
+</div>
+
+<div class="find">
+  <h3>Threshold selection remains sensitive</h3>
+ I selected a threshold of 0.012 for the Random Forest using the seven validation patients. On the test set it produces 99.99% recall but only 24.8% precision. Almost every beat is flagged as abnormal. The F2 score falls from 0.778 to 0.623.
+  <p>The same tuning procedure improves the CNN’s F2 score from 0.676 to 0.750. A threshold chosen on a small group of patients does not transfer equally well to the test set for every model.</p>
+</div>
+
+<div class="find">
+  <h3>Results vary between patients</h3>
+ I examined how abnormal beats were distributed across test patients. Recordings 207 and 214 contain almost exclusively abnormal beats. Together they account for 54% of abnormal beats in the test set. Another recording contains no abnormalities. This showed me how much overall scores depend on which patients are included in the test set.
+</div>
+
+<h2>Limitations and next steps</h2>
+<div class="two">
+  <div>
+    <h3>Limitations</h3>
+    <p>I did not calculate confidence intervals. The validation set contains only seven patients. The models distinguish normal from abnormal beats without identifying the type of abnormality. </p>
+  </div>
+  <div>
+    <h3>Possible next steps</h3>
+    <p>I could test several splits with grouped cross-validation by patient. This would also help reassess threshold selection. A bootstrap could estimate confidence intervals. I could then combine signal and rhythm information in the CNN or try to recognise different types of abnormality.</p>
+  </div>
+</div>
+
+<h2>Skills used</h2>
+<div class="tags">
+  <span>Data collection and preparation</span>
+  <span>Feature engineering</span>
+  <span>Machine Learning</span>
+  <span>Deep Learning</span>
+  <span>Patient-level evaluation</span>
+  <span>Signal processing</span>
+  <span>Health data</span>
+  <span>Python</span>
+  <span>scikit-learn</span>
+  <span>PyTorch</span>
+</div>
+
+<footer>
+  <a href="../index.html#projets">← Back to projects</a>
+  · Data from the MIT-BIH Arrhythmia Database by Moody &amp; Mark on PhysioNet.
+</footer>
+</main>
+
+<dialog id="ec-dialog" aria-label="Enlarged chart"><div class="ec-dialog-bar"><span id="ec-zoom-title">Chart</span><button type="button" id="ec-close">Close ×</button></div><img id="ec-zoom-image" alt=""></dialog>
+<script>
+(() => {
+  const models = {
+    rf: {title: 'Random Forest', image: "../../images/ecg-matrice-rf.png", auc: "0.864", precision: "50.9%", recall: "89.6%", f1: "0.650", description: "The Random Forest uses 13 morphological features and four rhythm features. It contains 300 trees."},
+    cnn: {title: 'CNN 1D', image: "../../images/ecg-matrice-cnn.png", auc: "0.867", precision: "55.2%", recall: "71.6%", f1: "0.623", description: "The 1D CNN analyses normalised segments using three convolutional blocks. It receives no rhythm features."}
+  };
+  const buttons = [...document.querySelectorAll('[data-model]')];
+  const matrix = document.getElementById('ec-matrix');
+  buttons.forEach(button => button.addEventListener('click', () => {
+    const model = models[button.dataset.model];
+    buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    matrix.src = model.image;
+    matrix.alt = "Confusion matrix " + model.title;
+    matrix.parentElement.href = model.image;
+    document.getElementById('ec-model-title').textContent = model.title;
+    document.getElementById('ec-model-description').textContent = model.description;
+    ['auc','precision','recall','f1'].forEach(key => document.getElementById('ec-' + key).textContent = model[key]);
+  }));
+  const dialog = document.getElementById('ec-dialog');
+  document.querySelectorAll('.ec-zoom, .ec-image-link').forEach(link => {
+    link.addEventListener('click', event => {
+      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || typeof dialog.showModal !== 'function') return;
+      event.preventDefault();
+      const image = link.querySelector('img');
+      document.getElementById('ec-zoom-image').src = image.src;
+      document.getElementById('ec-zoom-image').alt = image.alt;
+      document.getElementById('ec-zoom-title').textContent = image.alt;
+      dialog.showModal();
+    });
+  });
+  document.getElementById('ec-close').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', event => {
+    if (event.target !== dialog) return;
+    const r = dialog.getBoundingClientRect();
+    if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) dialog.close();
+  });
+})();
+</script>
+</body>
+</html>

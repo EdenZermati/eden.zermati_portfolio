@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sealka — digital wardrobe and virtual try-on — Eden Zermati</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../projet.css">
+<style>pre{background:var(--card);border-left:4px solid var(--wine);padding:12px 16px;overflow-x:auto;font-size:14px;line-height:1.55;margin:10px 0}code{font-family:ui-monospace,Consolas,monospace;font-size:.92em}</style>
+<style>.pipe{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:18px 0}.pipe span{background:var(--card);border-left:4px solid var(--wine);padding:8px 12px;font-size:14px}.pipe i{font-style:normal;color:var(--wine)}.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:22px;margin:18px 0}.gal figure{margin:0}.gal figcaption{text-align:center}.phn{border:8px solid #0E1F38;border-radius:26px;overflow:hidden;background:#0E1F38;max-width:240px;margin:0 auto}.phn img{display:block;width:100%;height:auto}</style>
+<link rel="stylesheet" href="../../langues.css">
+<link rel="alternate" hreflang="fr" href="../../projets/sealka.html">
+<link rel="alternate" hreflang="en" href="sealka.html">
+</head>
+<body>
+<main>
+<div class="portfolio-language-row"><a class="back" href="../index.html#projets">← Back to projects</a><div class="portfolio-language-switch" role="group" aria-label="Portfolio language"><a href="../../projets/sealka.html" lang="fr" hreflang="fr" aria-label="Afficher cette page en français">FR</a><a href="sealka.html" lang="en" hreflang="en" aria-label="Display this page in English" aria-current="page">EN</a></div></div>
+<div class="sealka-heading">
+  <img class="sealka-heading-logo" src="../../images/sealka-logo.jpg" alt="" width="72" height="72">
+
+  <div>
+    <h1>Sealka</h1>
+    <p>Mobile app · Personal project</p>
+  </div>
+</div>
+<p class="hook">A digital wardrobe and virtual try-on app. Try an item on your photo and share the result with friends to ask what they think.</p>
+<dl class="meta">
+<div><dt>Type</dt><dd>Personal project</dd></div>
+<div><dt>Status</dt><dd>Working mobile prototype</dd></div>
+<div><dt>Test</dt><dd>Android phone</dd></div>
+<div><dt>Tools</dt><dd>React Native, TypeScript, Expo, Supabase, FASHN API</dd></div>
+</dl>
+<div class="kpi">
+<div><b>5</b><span>tabs for Profile, Explore, Catalogue, Wardrobe and Messages</span></div>
+<div><b>1</b><span>integrated AI service (FASHN)</span></div>
+<div><b>3</b><span>try-on states handled — pending, failed and cancelled</span></div>
+</div>
+<div class="note"><b>Demo images.</b> The photos of people and clothes shown in the app and on this page were generated with AI for demonstration only. They do not depict real people.</div>
+
+<h2>Context and goal</h2>
+<p>Sealka grew out of a personal habit. When I am unsure about buying clothes, I send fitting-room photos to friends to ask what they think. I wanted to make that exchange easier through an app that also brings together a digital catalogue and a personal wardrobe.</p>
+<p>The aim is to discover an item, try it on a photo and share the result with friends in one user flow.</p>
+<p>Alongside my background in data analysis and data science, this project gave me an opportunity to explore mobile development and the integration of an AI service.</p>
+
+<h2>My role</h2>
+<p>I defined the concept, features and user flows. I designed the visual identity and created the logo. I then integrated changes and tested the app on my phone.</p>
+<p>Development was carried out with Codex’s assistance. Virtual try-on uses a model provided by FASHN. I did not train a model for this project.</p>
+
+<h2>Approach</h2>
+<p>I started by making the main user flow work before refining the other screens. The prototype developed over time. I added features, tested them on my phone and fixed the issues I found. </p>
+
+<h2>Main features</h2>
+<ul>
+<li>Browse a catalogue and add clothes to a wardrobe.</li>
+<li>Add your own clothes from photos.</li>
+<li>Try clothes on virtually and compare before and after.</li>
+<li>Post outfits and discover profiles.</li>
+<li>Share a result in a conversation.</li>
+</ul>
+
+<h2>Discover Sealka</h2>
+<p>Choose a feature to explore the app.</p>
+
+<style>
+  .sealka-demo {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    align-items: center;
+    gap: 40px;
+    margin: 28px 0;
+    padding: 32px;
+    background: #f3eee7;
+    border: 1px solid #ded5ca;
+    border-radius: 24px;
+  }
+
+  .sealka-menu {
+    display: grid;
+    gap: 12px;
+  }
+
+  .sealka-step {
+    padding: 18px;
+    border: 1px solid #ded5ca;
+    border-radius: 14px;
+    background: #fffaf5;
+    color: #352b29;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+    transition: background .2s, border-color .2s;
+  }
+
+  .sealka-step strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 17px;
+  }
+
+  .sealka-step span {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .sealka-step[aria-pressed="true"] {
+    background: #0e1f38;
+    border-color: #0e1f38;
+    color: white;
+  }
+
+  .sealka-step:focus-visible {
+    outline: 3px solid var(--wine, #7b3444);
+    outline-offset: 4px;
+  }
+
+  .sealka-phone {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 8px solid #0e1f38;
+    border-radius: 34px;
+    background: #f8f6f0;
+    box-shadow: 0 18px 40px #0e1f3820;
+    box-sizing: border-box;
+  }
+
+  .sealka-screen {
+    height: 530px;
+    overflow-y: auto;
+  }
+
+  .sealka-screen img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .sealka-hint {
+    margin: 12px 0 0;
+    text-align: center;
+    font-size: 13px;
+    color: #706761;
+  }
+
+  @media (max-width: 700px) {
+    .sealka-demo {
+      grid-template-columns: 1fr;
+      padding: 20px;
+      gap: 24px;
+    }
+  }
+</style>
+
+<div class="sealka-demo">
+  <div class="sealka-menu" role="group" aria-label="Sealka features">
+
+    <button type="button" class="sealka-step" data-screen="catalogue" aria-pressed="true">
+      <strong>01 — Choose an item</strong>
+      <span>Browse the catalogue to find an item of clothing.</span>
+    </button>
+
+    <button type="button" class="sealka-step" data-screen="dressing" aria-pressed="false">
+      <strong>02 — Organise your wardrobe</strong>
+      <span>Keep your clothes in a personal space.</span>
+    </button>
+
+    <button type="button" class="sealka-step" data-screen="essayage" aria-pressed="false">
+      <strong>03 — Prepare a try-on</strong>
+      <span>Select a photo and the item you want to try.</span>
+    </button>
+
+    <button type="button" class="sealka-step" data-screen="explorer" aria-pressed="false">
+      <strong>04 — Find inspiration</strong>
+      <span>Discover outfits and community profiles.</span>
+    </button>
+
+    <button type="button" class="sealka-step" data-screen="messagerie" aria-pressed="false">
+      <strong>05 — Talk with friends</strong>
+      <span>Share a try-on and ask friends what they think.</span>
+    </button>
+
+  </div>
+
+  <div>
+    <div class="sealka-phone">
+      <div class="sealka-screen" id="sealka-screen">
+        <img id="sealka-preview" src="../../images/sealka-03-catalogue.jpg" alt="Sealka clothing catalogue">
+      </div>
+    </div>
+    <p class="sealka-hint">
+      Screen preview · Scroll inside the phone
+    </p>
+    <p class="sealka-hint" id="sealka-caption" aria-live="polite">Catalogue</p>
+  </div>
+</div>
+
+<script>
+  (() => {
+    const screens = {
+      catalogue: {
+        image: "sealka-03-catalogue.jpg",
+        title: "Catalogue",
+        alt: "Sealka clothing catalogue"
+      },
+      dressing: {
+        image: "sealka-02-dressing.jpg",
+        title: "Wardrobe",
+        alt: "Personal wardrobe in Sealka"
+      },
+      essayage: {
+        image: "sealka-04-essayage.jpg",
+        title: "Try-on setup",
+        alt: "Selecting the photo and item for try-on"
+      },
+      explorer: {
+        image: "sealka-01-explorer.jpg",
+        title: "Explore",
+        alt: "Discovering outfits in Sealka"
+      },
+      messagerie: {
+        image: "sealka-06-messagerie.jpeg",
+        title: "Messages",
+        alt: "Sealka messaging to share a try-on with friends"
+      }
+    };
+
+    const buttons = document.querySelectorAll(".sealka-step");
+    const preview = document.getElementById("sealka-preview");
+    const caption = document.getElementById("sealka-caption");
+    const screen = document.getElementById("sealka-screen");
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const selected = screens[button.dataset.screen];
+
+        buttons.forEach(item => {
+          item.setAttribute("aria-pressed", String(item === button));
+        });
+
+        preview.src = "../../images/" + selected.image;
+        preview.alt = selected.alt;
+        caption.textContent = selected.title;
+        screen.scrollTop = 0;
+      });
+    });
+  })();
+</script>
+
+<p style="color:var(--mute);font-size:14px">
+  Screenshots of the Android prototype. AI-generated images and fictional prices are used for demonstration.
+</p>
+
+
+<style>
+  .tryon-comparison {
+    max-width: 380px;
+    margin: 24px auto;
+  }
+
+  .tryon-images {
+    position: relative;
+    overflow: hidden;
+    border: 6px solid #0e1f38;
+    border-radius: 24px;
+    background: #eee9e2;
+    --reveal: 50%;
+  }
+
+  .tryon-images img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .tryon-images .tryon-after {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    clip-path: inset(0 calc(100% - var(--reveal)) 0 0);
+  }
+
+  .tryon-divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--reveal);
+    width: 3px;
+    background: white;
+    transform: translateX(-50%);
+    pointer-events: none;
+    box-shadow: 0 0 6px #0004;
+  }
+
+  .tryon-divider::after {
+    content: "↔";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #0e1f38;
+    color: white;
+    border: 2px solid white;
+    font-size: 23px;
+  }
+
+  .tryon-label {
+    position: absolute;
+    top: 14px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: #0e1f38;
+    color: white;
+    font-size: 12px;
+    pointer-events: none;
+  }
+
+  .tryon-label-after { left: 12px; }
+  .tryon-label-before { right: 12px; }
+
+  .tryon-controls {
+    margin-top: 18px;
+  }
+
+  .tryon-controls label {
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .tryon-controls input {
+    display: block;
+    width: 100%;
+    margin: 0;
+    accent-color: #0e1f38;
+    cursor: ew-resize;
+  }
+
+  .tryon-controls input:focus-visible {
+    outline: 3px solid var(--wine, #7b3444);
+    outline-offset: 5px;
+  }
+
+  .tryon-note {
+    text-align: center;
+    font-size: 13px;
+    color: #706761;
+    line-height: 1.5;
+  }
+</style>
+
+<div class="tryon-comparison">
+  <div class="tryon-images" id="tryon-images">
+    <img src="../../images/sealka-avant.jpeg" alt="Original photo before virtual try-on" loading="lazy">
+
+    <img class="tryon-after" src="../../images/sealka-apres.jpeg" alt="Virtual try-on result with the selected item" loading="lazy">
+
+    <span class="tryon-label tryon-label-after">After</span>
+    <span class="tryon-label tryon-label-before">Before</span>
+    <div class="tryon-divider" aria-hidden="true"></div>
+  </div>
+
+  <div class="tryon-controls">
+    <label for="tryon-slider">Compare before / after</label>
+    <input id="tryon-slider" type="range" min="0" max="100" value="50" aria-valuetext="Try-on result visible at 50%">
+  </div>
+
+  <p class="tryon-note">
+    Result saved from the prototype. This page does not generate a new image.
+  </p>
+</div>
+
+<script>
+  (() => {
+    const slider = document.getElementById("tryon-slider");
+    const images = document.getElementById("tryon-images");
+
+    slider.addEventListener("input", () => {
+      images.style.setProperty("--reveal", slider.value + "%");
+      slider.setAttribute(
+        "aria-valuetext",
+        "Try-on result visible at " + slider.value + " %"
+      );
+    });
+  })();
+</script>
+
+<style>
+  .sealka-video-section {
+    margin: 36px 0;
+    padding: 20px 16px;
+    background: #f3eee7;
+    border: 1px solid #ded5ca;
+    border-radius: 24px;
+    text-align: center;
+  }
+
+  .sealka-video-section h2 {
+    margin-top: 0;
+  }
+
+  .sealka-video-section p {
+    max-width: 460px;
+    margin: 0 auto 24px;
+    color: #706761;
+    line-height: 1.6;
+  }
+
+  .sealka-video-frame {
+    width: 100%;
+    max-width: 210px;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 8px solid #0e1f38;
+    border-radius: 34px;
+    background: #0e1f38;
+    box-shadow: 0 18px 40px #0e1f3820;
+    box-sizing: border-box;
+  }
+
+  .sealka-video-frame video {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>
+<section class="sealka-video-section">
+  <div class="sealka-video-text">
+    <h2>Sealka in action</h2>
+    <p>
+      Follow the flow through the prototype, from choosing an item to sharing the result.
+    </p>
+  </div>
+
+  <div class="sealka-video-frame">
+    <video controls preload="metadata" playsinline aria-label="Sealka app demo" poster="../../images/sealka-03-catalogue.jpg">
+      <source src="../../videos/sealka-demo.mp4" type="video/mp4">
+      Your browser cannot play this video.
+      <a href="../../videos/sealka-demo.mp4">Open the video</a>
+    </source></video>
+  </div>
+</section>
+
+<h2>Technical overview</h2>
+<div class="tw"><table><tr><th>Mobile app</th><td>React Native and Expo</td></tr><tr><th>Language</th><td>TypeScript</td></tr><tr><th>Navigation</th><td>Expo Router</td></tr><tr><th>Database</th><td>PostgreSQL via Supabase</td></tr><tr><th>Authentication and storage</th><td>Supabase Auth and Storage</td></tr><tr><th>Server-side processing</th><td>Supabase Edge Functions</td></tr><tr><th>Real-time messaging</th><td>Supabase Realtime</td></tr><tr><th>Virtual try-on</th><td>FASHN API</td></tr></table></div>
+
+<h2>How try-on works</h2>
+<p>The user selects a photo and an item of clothing. A server function checks the request, prepares access to the images and starts generation through FASHN.</p>
+<div class="pipe"><span>Photo and item selected</span><i>→</i><span>Supabase server function (validation)</span><i>→</i><span>FASHN API (generation)</span><i>→</i><span>Result saved</span><i>→</i><span>Compare and share</span></div>
+<p>The app then tracks the processing status. Once the result is available, it is saved and displayed for comparison and sharing.</p>
+
+<h2>Technical choices</h2>
+<div class="find"><h3>Bringing services together with Supabase</h3>Supabase handles accounts, data, images and messaging in the same environment.</div>
+<div class="find"><h3>Calling the AI service from the server</h3>FASHN calls go through the server so the API key is kept out of the mobile app.</div>
+
+
+<h2>Outcome and limitations</h2>
+<p>Tests on an Android phone confirmed that the flow worked from choosing an item to sharing the try-on result.</p>
+<div class="two">
+<div><h3>Limitations</h3><p>Sealka is still a prototype. Some content is demo data and the quality of AI results can vary. Testing has not yet been extended to multiple devices or users. </p></div>
+<div><h3>Next steps</h3><p>Gather feedback from a few users. Measure try-on success rates, processing time and cost, then analyse the findings. Test data access and image deletion more thoroughly.</p></div>
+</div>
+
+<h2>What I learnt about working with data</h2>
+<p>This project helped me understand how data moves from a mobile app to a database and an AI service. I also learnt to handle images, asynchronous processing and errors that can occur along the user journey.</p>
+<p>It complements my data projects with practical experience of integrating an AI service into a working product. </p>
+
+<h2>Skills used</h2>
+<div class="tags"><span>Product design</span><span>Mobile development</span><span>React Native</span><span>TypeScript</span><span>PostgreSQL</span><span>AI API integration</span><span>Visual design</span><span>On-device testing</span></div>
+
+<footer><a href="../index.html#projets">← Back to projects</a> · Personal project. AI-generated demo images.</footer>
+</main>
+<style>
+  .sealka-result-button {
+    display: block;
+    width: calc(100% - 24px);
+    margin: 14px 12px;
+    padding: 15px 12px;
+    border: none;
+    border-radius: 12px;
+    background: #0e1f38;
+    color: white;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .sealka-result-button:focus-visible {
+    outline: 3px solid var(--wine, #7b3444);
+    outline-offset: 3px;
+  }
+
+  .sealka-screen .tryon-comparison {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+
+  .sealka-screen .tryon-images {
+    border: none;
+    border-radius: 0;
+  }
+
+  .sealka-screen .tryon-controls {
+    padding: 0 16px;
+  }
+
+  .sealka-screen .tryon-note {
+    padding: 0 12px;
+  }
+
+  .sealka-screen [hidden] {
+    display: none !important;
+  }
+</style>
+
+<script>
+  (() => {
+    const screen = document.getElementById("sealka-screen");
+    const preview = document.getElementById("sealka-preview");
+    const comparison = document.querySelector(".tryon-comparison");
+    const caption = document.getElementById("sealka-caption");
+
+    if (!screen || !preview || !comparison) return;
+
+    // Move the existing comparison into the phone.
+    comparison.hidden = true;
+    screen.appendChild(comparison);
+
+    // Add the button below the try-on screenshot.
+    const showResult = document.createElement("button");
+    showResult.type = "button";
+    showResult.className = "sealka-result-button";
+    showResult.textContent = "View the demo result →";
+    showResult.hidden = true;
+    screen.insertBefore(showResult, preview);
+
+    // Add a button to return to setup.
+    const back = document.createElement("button");
+    back.type = "button";
+    back.className = "sealka-result-button";
+    back.textContent = "← Back to setup";
+    comparison.appendChild(back);
+
+    document.querySelectorAll(".sealka-step").forEach(button => {
+      button.addEventListener("click", () => {
+        preview.hidden = false;
+        comparison.hidden = true;
+        showResult.hidden = button.dataset.screen !== "essayage";
+        screen.scrollTop = 0;
+      });
+    });
+
+    showResult.addEventListener("click", () => {
+      preview.hidden = true;
+      showResult.hidden = true;
+      comparison.hidden = false;
+
+      // Centre the slider.
+      const slider = document.getElementById("tryon-slider");
+      slider.value = "50";
+      slider.dispatchEvent(new Event("input"));
+
+      caption.textContent = "Compare the original photo and the result";
+      screen.scrollTop = 0;
+      document.getElementById("tryon-slider").focus({
+        preventScroll: true
+      });
+    });
+
+    back.addEventListener("click", () => {
+      comparison.hidden = true;
+      preview.hidden = false;
+      showResult.hidden = false;
+      caption.textContent = "Try-on setup";
+      screen.scrollTop = 0;
+      showResult.focus();
+    });
+  })();
+</script>
+<style>
+  .sealka-video-section {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 210px;
+    align-items: center;
+    gap: 32px;
+    margin: 32px 0;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    text-align: left;
+  }
+
+  .sealka-video-section h2 {
+    margin: 0 0 14px;
+  }
+
+  .sealka-video-section p {
+    max-width: 400px;
+    margin: 0;
+    color: var(--mute, #706761);
+    line-height: 1.7;
+  }
+
+  .sealka-video-section .sealka-video-frame {
+    width: 100%;
+    max-width: 210px;
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .sealka-video-section {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .sealka-video-section .sealka-video-frame {
+      margin: 0 auto;
+    }
+  }
+</style>
+<style>
+  .sealka-heading {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin: 24px 0 18px;
+  }
+
+  .sealka-heading .sealka-heading-logo {
+    display: block;
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    object-fit: contain;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .sealka-heading h1 {
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  .sealka-heading p {
+    margin: 8px 0 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--mute, #706761);
+  }
+
+  @media (max-width: 480px) {
+    .sealka-heading {
+      gap: 12px;
+    }
+
+    .sealka-heading .sealka-heading-logo {
+      width: 56px;
+      height: 56px;
+    }
+  }
+</style>
+<style>
+  .sealka-heading .sealka-heading-logo {
+    padding: 6px;
+    border: 1px solid var(--wine, #7b3444);
+    border-radius: 14px;
+    box-sizing: border-box;
+  }
+</style>
+</body>
+</html>
